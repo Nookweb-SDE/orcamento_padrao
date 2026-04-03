@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+
+# Áudio grande / ambiente local
+*.wav
+*.ogg
+
+# Python (transcrições / venv por pasta)
+**/.venv/
+**/__pycache__/
+**/*.pyc
+
+.env
+.env.*

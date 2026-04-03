@@ -1,0 +1,46 @@
+Transcrição dos PTTs (Gold Luxy)
+================================
+
+Instalação (Ubuntu/Debian — erro "externally-managed-environment")
+--------------------------------------------------------------------
+Não uses pip a nível do sistema. Cria um venv nesta pasta:
+
+  cd "/home/almirante/Área de trabalho/Nookweb/orçamento/goldluxy/_transcricoes"
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install -r requirements.txt
+  python3 transcrever_local.py
+
+Para sair do venv: deactivate
+
+Variável FASTER_WHISPER_MODEL
+-----------------------------
+• Não definas nada → usa o modelo "small" (descarrega da Internet na 1.ª vez).
+• Não uses o texto de exemplo "/caminho/para/..." — isso não é um caminho real.
+• Para modelo offline: exporta o caminho absoluto da pasta onde está o modelo CTranslate2.
+• Se exportaste um exemplo por engano: unset FASTER_WHISPER_MODEL
+
+Áudios de origem (WhatsApp, 2026-04-03):
+  • WhatsApp Ptt 2026-04-03 at 15.14.37.ogg  (~88 s)
+  • WhatsApp Ptt 2026-04-03 at 15.19.28.ogg  (~68 s)
+
+Ficheiros nesta pasta
+-----------------------
+• WAV 16 kHz mono (mesmo nome base que o OGG) — entrada recomendada para Whisper.
+• WhatsApp_Ptt_*_at_*.txt — transcrição em PT-BR (preencher com transcrever_local.py ou colagem manual).
+• transcrever_local.py — script com faster-whisper.
+• 02_analise_estruturada.md — checklist de valores/entregas (após texto).
+• 03_cruzamento_com_index_html.md — cruzamento com a proposta em index.html.
+
+Modelo offline (sem Internet)
+-----------------------------
+Coloca o modelo CTranslate2 numa pasta real (ex.: ~/modelos/faster-whisper-small) e:
+
+  export FASTER_WHISPER_MODEL="$HOME/modelos/faster-whisper-small"
+  source .venv/bin/activate
+  python3 transcrever_local.py
+
+Ambiente Cursor / CI
+----------------------
+Sem DNS ou sem cache Hugging Face, a transcrição automática falha até correres o script na tua máquina
+ou forneceres FASTER_WHISPER_MODEL apontando para ficheiros locais.
