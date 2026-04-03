@@ -10,9 +10,15 @@ Thumbs.db
 **/_transcricoes/02_*.md
 **/_transcricoes/03_*.md
 
-# Áudio grande / ambiente local
+# Áudio / ambiente local (não versionar)
 *.wav
 *.ogg
+*.mp3
+*.m4a
+*.opus
+*.flac
+*.aac
+*.webm
 
 # Python (transcrições / venv por pasta)
 **/.venv/

@@ -10,7 +10,7 @@ Instalação (Ubuntu/Debian — erro "externally-managed-environment")
 --------------------------------------------------------------------
 Não uses pip a nível do sistema. Cria um venv nesta pasta:
 
-  cd "/home/almirante/Área de trabalho/Nookweb/orçamento/goldluxy/_transcricoes"
+  cd empresas/goldluxy/_transcricoes   # a partir da raiz deste repositório
   python3 -m venv .venv
   source .venv/bin/activate
   pip install -r requirements.txt
@@ -25,9 +25,7 @@ Variável FASTER_WHISPER_MODEL
 • Para modelo offline: exporta o caminho absoluto da pasta onde está o modelo CTranslate2.
 • Se exportaste um exemplo por engano: unset FASTER_WHISPER_MODEL
 
-Áudios de origem (WhatsApp, 2026-04-03):
-  • WhatsApp Ptt 2026-04-03 at 15.14.37.ogg  (~88 s)
-  • WhatsApp Ptt 2026-04-03 at 15.19.28.ogg  (~68 s)
+Coloca aqui os teus ficheiros `.ogg` (ou exporta para `.wav` 16 kHz mono) antes de correr o script.
 
 Ficheiros nesta pasta
 -----------------------
