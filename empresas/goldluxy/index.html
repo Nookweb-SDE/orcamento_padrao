@@ -287,10 +287,10 @@ a{color:inherit;text-decoration:none}
 .stats-section #statsShaderBg{position:absolute;inset:0;z-index:0}
 .stats-section #statsShaderBg canvas{width:100%!important;height:100%!important;display:block!important}
 .stats-section .container{position:relative;z-index:1}
-.stats-grid{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:stretch}
+.stats-grid{display:flex;gap:16px;justify-content:center;flex-wrap:nowrap;align-items:stretch}
 .stat-card{
   position:relative;overflow:hidden;
-  flex:1 1 280px;max-width:360px;
+  flex:1 1 0;max-width:300px;min-width:0;
   background:#1a1a1c;
   border:1px solid rgba(192,192,192,.5);
   border-radius:20px;
@@ -356,14 +356,17 @@ a{color:inherit;text-decoration:none}
 @keyframes rocketSpin{to{transform:rotateY(360deg) rotateX(8deg)}}
 @keyframes lightningSpin{0%{transform:rotateY(0deg) rotateX(5deg)}100%{transform:rotateY(360deg) rotateX(5deg)}}
 @keyframes starSpin{0%{transform:rotateY(0deg) rotateZ(0deg)}100%{transform:rotateY(360deg) rotateZ(15deg)}}
+@keyframes shieldSpin{0%{transform:rotateY(0deg) rotateX(5deg)}100%{transform:rotateY(360deg) rotateX(5deg)}}
 @keyframes statsShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 .shape-rocket{animation:rocketSpin 8s linear infinite}
 .shape-lightning{animation:lightningSpin 7s linear infinite}
 .shape-star{animation:starSpin 9s linear infinite}
+.shape-shield{animation:shieldSpin 8s linear infinite}
 .stat-card:hover .shape-rocket{animation-duration:1.2s}
 .stat-card:hover .shape-lightning{animation-duration:1s}
 .stat-card:hover .shape-star{animation-duration:1.1s}
+.stat-card:hover .shape-shield{animation-duration:1s}
 
 .shimmer-title{
   font-style:italic;
@@ -373,7 +376,8 @@ a{color:inherit;text-decoration:none}
   animation:statsShimmer 3.5s linear infinite;
 }
 
-@media(max-width:640px){.stats-grid{flex-direction:column;align-items:stretch}.stat-card{max-width:100%;flex:none}}
+@media(max-width:640px){.stats-grid{flex-wrap:wrap}.stat-card{flex:1 1 calc(50% - 8px);max-width:100%}}
+@media(max-width:420px){.stat-card{flex:1 1 100%}}
 
 /* ═══ CASES SECTION ═══ */
 .cases-section{background:var(--black-rich);padding:100px 0}
@@ -728,51 +732,52 @@ a{color:inherit;text-decoration:none}
   flex-wrap:wrap;align-items:flex-start;min-height:420px;
 }
 .inv-list{flex:1 1 48%;min-width:min(100%,300px);max-width:560px}
-.inv-row{
-  position:relative;display:flex;align-items:center;gap:18px;
-  padding:18px 0;cursor:pointer;border-bottom:1px solid rgba(192,192,192,.28);
-  transition:all .4s cubic-bezier(.23,1,.32,1);
+button.inv-row{
+  position:relative;display:flex;align-items:center;gap:20px;width:100%;
+  padding:20px 0;cursor:pointer;
+  border:none;border-bottom:1px solid rgba(192,192,192,.22);
+  border-radius:0;
+  background:transparent;font:inherit;text-align:left;color:inherit;
+  -webkit-appearance:none;appearance:none;
+  transition:all .45s cubic-bezier(.23,1,.32,1);
 }
-.inv-row::before{
+button.inv-row::before{
   content:'';position:absolute;left:0;top:0;bottom:0;width:100%;
-  background:linear-gradient(90deg,rgba(255,69,0,.06),transparent 55%);
-  opacity:0;transition:opacity .35s ease;
+  background:linear-gradient(90deg,rgba(255,69,0,.04),transparent 50%);
+  opacity:0;transition:opacity .4s ease;pointer-events:none;
 }
-.inv-row:hover::before,.inv-row--active::before{opacity:1}
-.inv-row:hover,.inv-row--active{padding-left:12px;border-bottom-color:rgba(255,69,0,.22)}
+button.inv-row:hover::before{opacity:1}
+button.inv-row:hover{padding-left:14px;border-bottom-color:rgba(255,69,0,.2)}
+button.inv-row:hover .inv-row-bar{transform:scaleY(1)}
+button.inv-row:hover .inv-row-num{color:var(--orange)}
+button.inv-row:hover .inv-row-ico{opacity:1;transform:scale(1.1) rotate(-5deg)}
+button.inv-row:hover .inv-row-sub{opacity:1;transform:translateX(0)}
+button.inv-row:hover .inv-row-arrow{opacity:1;transform:translateX(0)}
 .inv-row-bar{
-  position:absolute;left:0;top:22%;bottom:22%;width:3px;background:var(--orange);
+  position:absolute;left:0;top:20%;bottom:20%;width:2px;background:var(--orange);
   transform:scaleY(0);transform-origin:center;transition:transform .4s cubic-bezier(.23,1,.32,1);
-  border-radius:2px;
+  border-radius:1px;
 }
-.inv-row--active .inv-row-bar,.inv-row:hover .inv-row-bar{transform:scaleY(1)}
 .inv-row-num{
-  font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:rgba(118,112,105,.55);
-  min-width:28px;transition:color .35s;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:rgba(192,192,192,.5);
+  min-width:26px;transition:color .4s;
 }
-.inv-row--active .inv-row-num,.inv-row:hover .inv-row-num{color:var(--orange)}
-.inv-row-ico{flex-shrink:0;opacity:.45;transition:transform .4s,opacity .35s;width:26px;height:26px;display:flex;align-items:center;justify-content:center}
-.inv-row--active .inv-row-ico,.inv-row:hover .inv-row-ico{opacity:1;transform:scale(1.06)}
-.inv-row-text{flex:1;min-width:0}
+.inv-row-ico{flex-shrink:0;opacity:.4;transition:all .45s cubic-bezier(.23,1,.32,1);width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+.inv-row-text{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
 .inv-row-title{
-  font-family:var(--font-serif);font-size:clamp(17px,2.2vw,24px);color:var(--heavy);
-  line-height:1.15;font-weight:400;margin:0;
+  font-family:var(--font-serif);font-size:clamp(18px,2.4vw,26px);color:var(--heavy);
+  line-height:1.15;font-weight:400;margin:0;transition:all .4s ease;
 }
 .inv-row-sub{
   font-family:var(--font-mono);font-size:9px;color:var(--orange);text-transform:uppercase;
-  letter-spacing:.14em;margin-top:4px;opacity:0;transform:translateX(-6px);
-  transition:all .4s cubic-bezier(.23,1,.32,1);
+  letter-spacing:.14em;margin-top:3px;opacity:0;transform:translateX(-6px);
+  transition:all .45s cubic-bezier(.23,1,.32,1);
 }
-.inv-row:hover .inv-row-sub,.inv-row--active .inv-row-sub{opacity:1;transform:translateX(0)}
-.inv-row-arrow{color:var(--orange);font-size:15px;opacity:0;transform:translateX(-8px);transition:all .35s ease;flex-shrink:0}
-.inv-row:hover .inv-row-arrow,.inv-row--active .inv-row-arrow{opacity:1;transform:translateX(0)}
-button.inv-row{
-  display:flex;align-items:center;gap:18px;width:100%;
-  background:transparent;border:none;padding:18px 0;margin:0;
-  cursor:pointer;font:inherit;text-align:left;color:inherit;
-  -webkit-appearance:none;appearance:none;
+.inv-row-arrow{font-size:16px;color:var(--orange);opacity:0;transform:translateX(-10px);transition:all .45s cubic-bezier(.23,1,.32,1);flex-shrink:0}
+button.inv-row:focus-visible{
+  outline:2px solid var(--orange);
+  outline-offset:3px;
 }
-.inv-row-text{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
 .inv-panel-wrap{
   flex:1 1 38%;min-width:min(100%,280px);position:sticky;top:96px;align-self:flex-start;
   display:flex;justify-content:center;perspective:900px;
@@ -884,6 +889,45 @@ button.inv-row{
 .bonus-list li strong{color:#8df4cc}
 @media(max-width:768px){.bonus-list{grid-template-columns:1fr}.bonus-trigger .bonus-title{font-size:26px}}
 
+/* ═══ INVESTIMENTO · fundo claro (lista + painel) ═══ */
+.investimento-nw .market-ref-card{
+  margin-top:28px;padding:20px 22px;border-radius:16px;
+  border:1px solid rgba(28,26,22,.1);background:rgba(255,255,255,.55);
+  font-size:13px;color:var(--neutral);line-height:1.65;
+}
+.investimento-nw .market-ref-card strong{color:var(--heavy)}
+.investimento-nw .inv-obs-box{
+  margin-top:24px;padding:20px 24px;border-radius:12px;font-size:12px;color:var(--neutral);line-height:1.8;
+  border:1px solid rgba(28,26,22,.1);background:rgba(255,255,255,.5);
+}
+.investimento-nw .inv-obs-box strong{color:var(--heavy)}
+.investimento-nw .inv-resumo-shell{border-radius:16px;overflow:hidden;border:1px solid rgba(28,26,22,.1);background:rgba(255,255,255,.55);margin-top:28px}
+.investimento-nw .inv-resumo-grid{display:grid;grid-template-columns:1fr auto auto;font-size:13px}
+.investimento-nw .inv-resumo-grid > div{padding:12px 18px;border-bottom:1px solid rgba(28,26,22,.06);color:var(--heavy)}
+.investimento-nw .inv-cenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+@media(max-width:900px){.investimento-nw .inv-cenarios-grid{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .investimento-nw .inv-resumo-grid{grid-template-columns:1fr!important}
+  .investimento-nw .inv-resumo-grid > div:nth-child(3n+2),
+  .investimento-nw .inv-resumo-grid > div:nth-child(3n){text-align:left!important}
+}
+.investimento-nw .inv-cenario-card{
+  border-radius:14px;padding:20px;text-align:center;border:1px solid rgba(28,26,22,.1);
+  background:rgba(255,255,255,.45);
+}
+.investimento-nw .inv-cenario-card--hot{background:rgba(255,69,0,.08);border-color:rgba(255,69,0,.22)}
+.inv-special-pill{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(232,140,120,.25);
+  border:1px solid rgba(200,90,70,.35);border-radius:30px;padding:10px 22px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#9a3d2e;
+}
+.market-ref-card{
+  margin-top:28px;padding:20px 22px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);
+  font-size:13px;color:var(--neutral);line-height:1.65;
+}
+.market-ref-card strong{color:var(--cream)}
+
 /* ═══ PALETTES ═══ */
 .palette-section{background:var(--black-rich);padding:100px 0}
 .palette-group{margin-top:40px}
@@ -934,7 +978,7 @@ button.inv-row{
 @media(max-width:1280px){
   .container{max-width:1080px}
   .stats-grid{gap:16px}
-  .stat-card{flex:1 1 260px;max-width:340px}
+  .stat-card{flex:1 1 0;max-width:280px}
 }
 
 /* ═══ RESPONSIVE — TABLET LANDSCAPE (≤1024px) ═══ */
@@ -945,7 +989,7 @@ button.inv-row{
   .case-highlight{grid-column:span 2}
   .market-grid{gap:32px}
   .market-stats{grid-template-columns:repeat(3,1fr);gap:12px}
-  .stat-card{flex:1 1 240px;max-width:320px;padding:28px 24px}
+  .stat-card{flex:1 1 0;max-width:none;padding:28px 20px}
   .stat-shape{width:64px;height:64px}
   .timeline-grid{gap:16px}
   .tl-card{padding:28px 22px 24px}
@@ -1396,9 +1440,9 @@ button.inv-row{
 <section class="hero" id="inicio">
   <div class="container">
     <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span> PROPOSTA COMERCIAL 2026</div>
+      <div class="hero-badge"><span class="dot"></span> NOOKWEB PREMIUM · PROPOSTA 2026</div>
       <h1>Gold Luxy <span>Joias Personalizadas</span></h1>
-      <p class="hero-sub">Plataforma de criação de joias sob medida — do design à entrega, com tecnologia de ponta e acabamento premium.</p>
+      <p class="hero-sub">E-commerce B2B sob medida com time sênior Nookweb — arquitetura enterprise, segurança e escala, do design à operação.</p>
       <div class="hero-tags">
         <span class="hero-tag">E-COMMERCE B2B</span>
         <span class="hero-tag">CONFIGURADOR 3D</span>
@@ -1406,7 +1450,7 @@ button.inv-row{
       </div>
       <div class="hero-ctas">
         <a href="#investimento" class="btn-liquid orange">Ver investimento</a>
-        <a href="https://wa.me/5511960630085?text=Olá! Vi a proposta da Gold Luxy e gostaria de saber mais." class="btn-outline" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+        <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20saber%20mais." class="btn-outline" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
       </div>
     </div>
   </div>
@@ -1425,8 +1469,8 @@ button.inv-row{
   <div id="statsShaderBg"></div>
   <div class="container">
     <div style="text-align:center;margin-bottom:72px">
-      <div class="section-label" style="justify-content:center" data-reveal>POR QUE A NOOKWEB</div>
-      <h2 class="section-title" data-reveal>Entregamos <span class="shimmer-title">resultados reais.</span></h2>
+      <div class="section-label" style="justify-content:center" data-reveal>AGÊNCIA PREMIUM</div>
+      <h2 class="section-title" data-reveal>Entregamos <span class="shimmer-title">com time sênior.</span></h2>
     </div>
     <div class="stats-grid">
 
@@ -1488,6 +1532,24 @@ button.inv-row{
         <div class="metal-badge"><span>28+</span></div>
       </div>
 
+      <!-- Card 4: Segurança -->
+      <div class="stat-card" data-reveal="delay-3">
+        <div class="bottom-glow"></div>
+        <div class="stat-shape">
+          <div class="stat-shape-inner shape-shield" style="transform-style:preserve-3d">
+            <svg width="56" height="64" viewBox="0 0 56 64" fill="none" style="position:absolute;top:4px;left:4px;transform:translateZ(-6px);opacity:.45"><path d="M28 4L6 16v16c0 14.4 9.4 27.2 22 32 12.6-4.8 22-17.6 22-32V16L28 4z" fill="url(#shg0)" stroke="#c0c0c0" stroke-width=".5"/><defs><linearGradient id="shg0" x1="0" y1="0" x2="56" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e8e8e8"/><stop offset="45%" stop-color="#FF4500"/><stop offset="100%" stop-color="#1a1a1c"/></linearGradient></defs></svg>
+            <svg width="56" height="64" viewBox="0 0 56 64" fill="none" style="position:relative;z-index:1"><path d="M28 4L6 16v16c0 14.4 9.4 27.2 22 32 12.6-4.8 22-17.6 22-32V16L28 4z" fill="url(#shg1)" stroke="#FF4500" stroke-width="1"/><path d="M22 32l6 6 10-12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><defs><linearGradient id="shg1" x1="0" y1="0" x2="56" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e8e8e8"/><stop offset="45%" stop-color="#FF4500"/><stop offset="100%" stop-color="#1a1a1c"/></linearGradient></defs></svg>
+            <svg width="56" height="64" viewBox="0 0 56 64" fill="none" style="position:absolute;top:4px;left:4px;transform:translateZ(6px);opacity:.45"><path d="M28 4L6 16v16c0 14.4 9.4 27.2 22 32 12.6-4.8 22-17.6 22-32V16L28 4z" fill="url(#shg2)" stroke="#c0c0c0" stroke-width=".5"/><defs><linearGradient id="shg2" x1="0" y1="0" x2="56" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e8e8e8"/><stop offset="45%" stop-color="#FF4500"/><stop offset="100%" stop-color="#1a1a1c"/></linearGradient></defs></svg>
+          </div>
+        </div>
+        <div class="stat-divider"></div>
+        <h3 class="stat-title">Segurança</h3>
+        <p class="stat-orange">Blindagem contra ataques</p>
+        <div class="stat-sep"></div>
+        <p class="stat-desc">LGPD, WAF, 2FA, criptografia e proteção contra hackers. Código seguro de verdade, feito por quem entende.</p>
+        <div class="metal-badge"><span>LGPD</span></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1540,7 +1602,7 @@ button.inv-row{
         <div class="case-body">
           <span class="case-cat">CONTABILIDADE · SaaS</span>
           <h3 class="case-name">ContPix</h3>
-          <p class="case-desc">Sistema de gestão contábil com CRM de clientes, pipeline de atendimentos, calendário fiscal e automação de tarefas. +323 empresas gerenciadas.</p>
+          <p class="case-desc">Sistema de gestão contábil com CRM de clientes, pipeline de atendimentos, calendário fiscal e automação de tarefas.</p>
           <a href="https://contpix.com.br" class="case-url" target="_blank">contpix.com.br →</a>
         </div>
       </div>
@@ -1565,6 +1627,28 @@ button.inv-row{
           <a href="https://nooklead.com.br" class="case-url" target="_blank">nooklead.com.br →</a>
         </div>
       </div>
+
+      <!-- MONOSPHERA -->
+      <div class="case-card" data-reveal>
+        <img class="case-img" src="case-monosphera.png" alt="Monosphera" style="object-position:top">
+        <div class="case-body">
+          <span class="case-cat">SEGURANÇA · APP MOBILE</span>
+          <h3 class="case-name">Monosphera</h3>
+          <p class="case-desc">Proteção inteligente para sua família. App de segurança pessoal com geolocalização em tempo real, botão de pânico e rede de contatos de emergência.</p>
+          <a href="https://monosphera.com" class="case-url" target="_blank">monosphera.com →</a>
+        </div>
+      </div>
+
+      <!-- MELHOR PIX -->
+      <div class="case-card" data-reveal="delay-1">
+        <img class="case-img" src="case-melhorpix.png" alt="Melhor Pix" style="object-position:top">
+        <div class="case-body">
+          <span class="case-cat">FINTECH · PAGAMENTOS</span>
+          <h3 class="case-name">Melhor Pix</h3>
+          <p class="case-desc">Plataforma de pagamentos PIX para empresas. Simplifique recebimentos com agilidade, segurança e redução de custos operacionais.</p>
+          <a href="https://melhorpix.com.br" class="case-url" target="_blank">melhorpix.com.br →</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1573,7 +1657,7 @@ button.inv-row{
 <!-- ═══ CTA INTERMEDIÁRIO 1 ═══ -->
 <div style="padding:48px 0;text-align:center;background:var(--black-rich);border-top:1px solid rgba(255,255,255,.04)">
   <p style="font-size:14px;color:var(--neutral);margin-bottom:16px" data-reveal>Gostou dos nossos resultados?</p>
-  <a href="https://wa.me/5511960630085?text=Olá! Vi a proposta da Gold Luxy e gostaria de saber mais." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal>
+  <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20saber%20mais." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal>
     Falar com a Nookweb via WhatsApp
   </a>
 </div>
@@ -1615,7 +1699,7 @@ button.inv-row{
       <div class="section-label" style="justify-content:center" data-reveal>DEPOIMENTOS</div>
       <h2 class="section-title" data-reveal>Quem trabalha com a Nookweb, <em>recomenda.</em></h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
 
       <div class="glass" style="padding:32px;display:flex;flex-direction:column;gap:16px" data-reveal>
         <div style="font-family:var(--font-serif);font-size:48px;color:var(--orange);line-height:1;opacity:.6">"</div>
@@ -1631,11 +1715,11 @@ button.inv-row{
 
       <div class="glass" style="padding:32px;display:flex;flex-direction:column;gap:16px" data-reveal="delay-1">
         <div style="font-family:var(--font-serif);font-size:48px;color:var(--orange);line-height:1;opacity:.6">"</div>
-        <p style="font-size:14px;color:var(--cream);line-height:1.7;font-style:italic;flex:1">Nosso sistema contábil ficou incrível. Mais de 323 empresas gerenciadas com facilidade. O suporte deles é rápido e resolve tudo na hora.</p>
+        <p style="font-size:14px;color:var(--cream);line-height:1.7;font-style:italic;flex:1">Nosso sistema contábil ficou incrível. O suporte deles é rápido e resolve tudo na hora. A plataforma mudou a forma como gerenciamos nossos clientes.</p>
         <div style="display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green),#0a9b6e);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">F</div>
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green),#0a9b6e);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">B</div>
           <div>
-            <div style="font-weight:600;font-size:13px;color:var(--cream)">Fernando S.</div>
+            <div style="font-weight:600;font-size:13px;color:var(--cream)">Bruno P.</div>
             <div style="font-size:11px;color:var(--neutral)">CEO · ContPix</div>
           </div>
         </div>
@@ -1643,12 +1727,24 @@ button.inv-row{
 
       <div class="glass" style="padding:32px;display:flex;flex-direction:column;gap:16px" data-reveal="delay-2">
         <div style="font-family:var(--font-serif);font-size:48px;color:var(--orange);line-height:1;opacity:.6">"</div>
-        <p style="font-size:14px;color:var(--cream);line-height:1.7;font-style:italic;flex:1">Migramos todo nosso catálogo de 10.000 produtos para a plataforma deles. O e-commerce B2B ficou profissional e nossos vendedores amaram o multicarrinho.</p>
+        <p style="font-size:14px;color:var(--cream);line-height:1.7;font-style:italic;flex:1">Nookweb delivered our personal safety app with incredible quality. Real-time geolocation, panic button — everything works flawlessly. Highly recommend their team.</p>
         <div style="display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#01034a,#1a3a8a);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">M</div>
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1a2a4a,#3a5a9a);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">M</div>
           <div>
-            <div style="font-weight:600;font-size:13px;color:var(--cream)">Marcos L.</div>
-            <div style="font-size:11px;color:var(--neutral)">Diretor Comercial · Latem</div>
+            <div style="font-weight:600;font-size:13px;color:var(--cream)">Mark L.</div>
+            <div style="font-size:11px;color:var(--neutral)">CEO · Monosphera · California</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass" style="padding:32px;display:flex;flex-direction:column;gap:16px" data-reveal="delay-3">
+        <div style="font-family:var(--font-serif);font-size:48px;color:var(--orange);line-height:1;opacity:.6">"</div>
+        <p style="font-size:14px;color:var(--cream);line-height:1.7;font-style:italic;flex:1">Criamos um banco fintech do zero com a Nookweb. A plataforma de pagamentos PIX ficou robusta, segura e escalável. O time entende de verdade o ecossistema financeiro.</p>
+        <div style="display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0d7a3e,#14a854);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">O</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:var(--cream)">Otton</div>
+            <div style="font-size:11px;color:var(--neutral)">Founder · Melhor Pix</div>
           </div>
         </div>
       </div>
@@ -1660,6 +1756,7 @@ button.inv-row{
 <style>
 @media(max-width:768px){
   .section [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
+  .section [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}
 }
 </style>
 
@@ -1879,239 +1976,330 @@ button.inv-row{
   </div>
 </section>
 
-<!-- ═══ TIMELINE ═══ -->
-<section class="timeline-section" id="prazos">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:48px">
-      <div class="section-label" style="justify-content:center" data-reveal>CRONOGRAMA</div>
-      <h2 class="section-title" data-reveal>Do zero ao <em>go-live</em> em 3 a 4 meses.</h2>
-      <p class="section-desc" style="margin:0 auto" data-reveal>Cada fase tem entregas concretas — você acompanha tudo em tempo real.</p>
+<!-- ═══ TIMELINE (padrão IA Corporativa — tabs laterais) ═══ -->
+<section class="crono-section" id="prazos">
+  <style>
+  .crono-section{
+    --crono-accent:#FF4500;--crono-bg:#0D0D0D;--crono-card:#161616;--crono-border:#2a2a2a;--crono-text:#e0e0e0;--crono-muted:#888;
+    background:var(--crono-bg);color:var(--crono-text);font-family:'DM Sans',sans-serif;padding:80px 24px 96px;
+  }
+  .crono-section *{box-sizing:border-box}
+  .crono-hero{text-align:center;margin-bottom:56px}
+  .crono-hero__tag{font-size:11px;color:var(--crono-accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;font-weight:600}
+  .crono-hero__title{font-family:var(--font-serif);font-size:clamp(28px,4.5vw,52px);font-style:italic;font-weight:400;color:#fff;line-height:1.15;max-width:720px;margin:0 auto 20px}
+  .crono-hero__title strong{font-weight:700;color:var(--crono-accent)}
+  .crono-hero__sub{font-size:16px;color:var(--crono-muted);max-width:600px;margin:0 auto;line-height:1.7}
+  .crono-metrics{text-align:center;margin-bottom:56px;font-size:18px;color:var(--crono-muted);line-height:2.2;font-family:var(--font-serif)}
+  .crono-metrics__value{color:var(--crono-accent);font-weight:700;font-size:26px;font-style:italic}
+  .crono-metrics__dot{color:#333;margin:0 8px}
+  .crono-tabs{display:flex;gap:0;max-width:1000px;margin:0 auto;min-height:340px}
+  .crono-tabs__nav{width:320px;flex-shrink:0}
+  .crono-tabs__tab{
+    padding:24px 28px;cursor:pointer;background:transparent;border:none;border-left:3px solid transparent;
+    display:block;width:100%;text-align:left;transition:all .35s ease;font-family:'DM Sans',sans-serif;color:inherit;
+  }
+  .crono-tabs__tab:hover{background:rgba(255,255,255,.02)}
+  .crono-tabs__tab.active{background:var(--crono-card);border-left-color:var(--crono-accent)}
+  .crono-tabs__tab-num{font-size:11px;color:#444;letter-spacing:2px;margin-bottom:6px;font-weight:600;transition:color .3s}
+  .crono-tabs__tab.active .crono-tabs__tab-num{color:var(--crono-accent)}
+  .crono-tabs__tab-title{font-size:18px;color:var(--crono-muted);font-family:var(--font-serif);transition:color .3s}
+  .crono-tabs__tab.active .crono-tabs__tab-title{color:#fff}
+  .crono-tabs__panel{flex:1;background:var(--crono-card);padding:48px;position:relative;overflow:hidden}
+  .crono-tabs__panel-bg-num{position:absolute;top:-24px;right:16px;font-family:var(--font-serif);font-size:200px;font-weight:700;font-style:italic;color:rgba(255,69,0,.06);line-height:1;pointer-events:none;user-select:none}
+  .crono-tabs__panel-content{position:relative;z-index:1}
+  .crono-tabs__panel-title{font-size:28px;color:#fff;font-family:var(--font-serif);font-weight:400;margin:0 0 4px}
+  .crono-tabs__panel-days{font-family:var(--font-mono);font-size:11px;color:var(--crono-accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+  .crono-tabs__panel-line{width:48px;height:2px;background:var(--crono-accent);margin-bottom:32px}
+  .crono-tabs__item{display:flex;align-items:flex-start;gap:16px;font-size:15px;color:var(--crono-text);line-height:1.6;margin-bottom:16px;opacity:0;transform:translateX(-12px);animation:cronoFade .4s ease forwards}
+  .crono-tabs__item:nth-child(1){animation-delay:0s}
+  .crono-tabs__item:nth-child(2){animation-delay:.1s}
+  .crono-tabs__item:nth-child(3){animation-delay:.15s}
+  .crono-tabs__item:nth-child(4){animation-delay:.2s}
+  .crono-tabs__item:nth-child(5){animation-delay:.25s}
+  .crono-tabs__item:nth-child(6){animation-delay:.3s}
+  .crono-tabs__item:nth-child(7){animation-delay:.35s}
+  .crono-tabs__item:nth-child(8){animation-delay:.4s}
+  .crono-tabs__item-arrow{color:var(--crono-accent);font-size:18px;line-height:24px;flex-shrink:0}
+  @keyframes cronoFade{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+  @media(max-width:768px){
+    .crono-tabs{flex-direction:column}
+    .crono-tabs__nav{width:100%;display:flex;overflow-x:auto;gap:0}
+    .crono-tabs__tab{white-space:nowrap;border-left:none;border-bottom:3px solid transparent;padding:16px 20px}
+    .crono-tabs__tab.active{border-bottom-color:var(--crono-accent);border-left:none}
+    .crono-tabs__panel{padding:32px 20px}
+    .crono-tabs__panel-bg-num{font-size:120px}
+  }
+  </style>
+
+  <div class="crono-hero" data-reveal>
+    <div class="crono-hero__tag">Cronograma</div>
+    <h2 class="crono-hero__title">Do zero ao <strong>go-live</strong> em 3 a 4 meses.</h2>
+    <p class="crono-hero__sub">Cada fase tem entregas concretas — você acompanha tudo em tempo real.</p>
+  </div>
+
+  <div class="crono-metrics" data-reveal>
+    <span class="crono-metrics__value">3</span> fases de entrega
+    <span class="crono-metrics__dot">·</span>
+    <span class="crono-metrics__value">4</span> meses até go-live
+    <span class="crono-metrics__dot">·</span>
+    <span class="crono-metrics__value">105</span> dias úteis
+  </div>
+
+  <div class="crono-tabs" data-reveal>
+    <div class="crono-tabs__nav" role="tablist" id="cronoNav">
+      <button type="button" role="tab" class="crono-tabs__tab active" data-crono="0" aria-selected="true">
+        <div class="crono-tabs__tab-num">FASE 01</div>
+        <div class="crono-tabs__tab-title">E-commerce B2B</div>
+      </button>
+      <button type="button" role="tab" class="crono-tabs__tab" data-crono="1" aria-selected="false">
+        <div class="crono-tabs__tab-num">FASE 02</div>
+        <div class="crono-tabs__tab-title">Gestão e Bling</div>
+      </button>
+      <button type="button" role="tab" class="crono-tabs__tab" data-crono="2" aria-selected="false">
+        <div class="crono-tabs__tab-num">FASE 03</div>
+        <div class="crono-tabs__tab-title">Identidade e Go-Live</div>
+      </button>
     </div>
-    <div class="timeline-grid">
+    <div class="crono-tabs__panel" role="tabpanel" id="cronoPanel">
+      <div class="crono-tabs__panel-bg-num" id="cronoBgNum">01</div>
+      <div class="crono-tabs__panel-content" id="cronoPanelContent"></div>
+    </div>
+  </div>
+</section>
 
-      <div class="tl-card" data-reveal>
-        <div class="tl-phase">1</div>
-        <h3 class="tl-title">Landing Page com E-commerce B2B</h3>
-        <p class="tl-days">30 DIAS ÚTEIS · MÊS 1</p>
-        <p class="tl-desc">Estrutura de produtos com categorias e subcategorias, importação de base com especificações técnicas, busca avançada com autocomplete e filtros, carrinho com exportação PDF/Excel, checkout com boleto/PIX/cartão, cálculo de frete por CEP, venda mínima R$ 600, identidade visual com banner slideshow.</p>
-        <div class="metal-badge"><span>30D</span></div>
+<script>
+(function(){
+  var CRONO=[
+    {num:'01',title:'Landing Page com E-commerce B2B',days:'30 DIAS ÚTEIS · MÊS 1',items:[
+      'Estrutura de produtos com categorias e subcategorias',
+      'Importação de base com especificações técnicas',
+      'Busca avançada com autocomplete e filtros',
+      'Carrinho com exportação PDF/Excel',
+      'Checkout com boleto/PIX/cartão',
+      'Cálculo de frete por CEP · Venda mínima R$ 600',
+      'Identidade visual com banner slideshow'
+    ]},
+    {num:'02',title:'Gestão de Clientes, Vendedores e Bling',days:'30 A 60 DIAS ÚTEIS · MESES 2 E 3',items:[
+      'Precificação com múltiplas tabelas (padrão, grupo, promocional)',
+      'Portal do cliente com dashboard e histórico',
+      'Onboarding com validação CNPJ e crédito (Serasa/SPC)',
+      'Área do vendedor com multicarrinho e metas',
+      'Painel administrativo com KPIs',
+      'Integração completa API Bling'
+    ]},
+    {num:'03',title:'Identidade Visual, Email e Go-Live',days:'15 DIAS ÚTEIS · MÊS 4',items:[
+      'Identidade visual completa aplicada',
+      '5 e-mails profissionais corporativos',
+      'Automação de e-mails transacionais (Brevo/Resend)',
+      'SEO aprimorado (SSR/SSG, sitemap, Schema.org)',
+      'Otimização de performance (Core Web Vitals)',
+      'QA completo, testes de integração',
+      'Deploy e lançamento'
+    ]}
+  ];
+  function renderCrono(i){
+    var d=CRONO[i];
+    document.getElementById('cronoBgNum').textContent=d.num;
+    var h='<h3 class="crono-tabs__panel-title">'+d.title+'</h3>';
+    h+='<div class="crono-tabs__panel-days">'+d.days+'</div>';
+    h+='<div class="crono-tabs__panel-line"></div>';
+    d.items.forEach(function(it,j){
+      h+='<div class="crono-tabs__item" style="animation-delay:'+j*0.08+'s"><span class="crono-tabs__item-arrow">→</span><span>'+it+'</span></div>';
+    });
+    document.getElementById('cronoPanelContent').innerHTML=h;
+  }
+  var tabs=document.querySelectorAll('.crono-tabs__tab');
+  tabs.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      tabs.forEach(function(b){b.classList.remove('active');b.setAttribute('aria-selected','false')});
+      btn.classList.add('active');btn.setAttribute('aria-selected','true');
+      renderCrono(parseInt(btn.getAttribute('data-crono'),10));
+    });
+  });
+  renderCrono(0);
+})();
+</script>
+
+<!-- ═══ INVESTIMENTO — valor de mercado + presente ═══ -->
+<section class="pricing-section investimento-section" id="investimento">
+  <div class="investimento-nw" style="padding:80px 0 64px">
+    <div class="container" style="position:relative;z-index:2">
+
+      <!-- Valor de mercado -->
+      <div data-reveal style="text-align:center;max-width:680px;margin:0 auto">
+        <div class="section-label" style="justify-content:center">INVESTIMENTO</div>
+        <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--neutral);text-transform:uppercase;margin:20px 0 6px">Quanto uma agência sênior cobraria por este projeto</p>
+        <p style="font-size:12px;color:var(--neutral);margin-bottom:16px;line-height:1.5;opacity:.8">E-commerce B2B sob medida · Configurador 3D · Integração Bling + NF-e · Portal do cliente e vendedores · Segurança enterprise · SEO + Performance</p>
+
+        <div style="font-family:var(--font-serif);font-size:clamp(48px,7vw,72px);color:var(--heavy);line-height:1;font-weight:400">
+          <span style="font-size:.45em;vertical-align:top;color:var(--neutral)">R$</span> 87.400<span style="font-size:.4em;color:var(--neutral)">,00</span>
+        </div>
+        <p style="font-size:14px;color:var(--heavy);margin-top:8px;font-weight:600">Projeto completo (implantação)</p>
+
+        <div style="display:flex;justify-content:center;gap:24px;margin-top:16px;flex-wrap:wrap">
+          <div style="background:rgba(28,26,22,.04);border:1px solid rgba(28,26,22,.08);border-radius:12px;padding:14px 20px;text-align:center;min-width:160px">
+            <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--neutral);text-transform:uppercase">Hora técnica sênior</div>
+            <div style="font-family:var(--font-serif);font-size:24px;color:var(--heavy);margin-top:4px">R$ 250–350</div>
+          </div>
+          <div style="background:rgba(28,26,22,.04);border:1px solid rgba(28,26,22,.08);border-radius:12px;padding:14px 20px;text-align:center;min-width:160px">
+            <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--neutral);text-transform:uppercase">Sustentação mensal</div>
+            <div style="font-family:var(--font-serif);font-size:24px;color:var(--heavy);margin-top:4px">R$ 3.500–6.000</div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--neutral);margin-top:12px;opacity:.6;line-height:1.5">Referência: agências com equipe sênior (React, Node, Flutter, DevOps) em projetos B2B com integrações ERP, gateways de pagamento e portal multi-perfil.</p>
       </div>
 
-      <div class="tl-card" data-reveal="delay-1">
-        <div class="tl-phase">2</div>
-        <h3 class="tl-title">Gestão de Clientes, Vendedores e Bling</h3>
-        <p class="tl-days">30 A 60 DIAS ÚTEIS · MESES 2 E 3</p>
-        <p class="tl-desc">Sistema de precificação com múltiplas tabelas (padrão, por cliente/grupo, promocional), portal do cliente com dashboard e histórico, onboarding com validação CNPJ e análise de crédito (Serasa/SPC), área do vendedor com multicarrinho e metas, painel administrativo com KPIs, integração completa API Bling.</p>
-        <div class="metal-badge"><span>60D</span></div>
-      </div>
-
-      <div class="tl-card" data-reveal="delay-2">
-        <div class="tl-phase">3</div>
-        <h3 class="tl-title">Identidade Visual, Email e Go-Live</h3>
-        <p class="tl-days">15 DIAS ÚTEIS · MÊS 4</p>
-        <p class="tl-desc">Identidade visual completa aplicada, 5 e-mails profissionais corporativos, automação de e-mails transacionais (Brevo/Resend), SEO aprimorado (SSR/SSG, sitemap, Schema.org), otimização de performance (Core Web Vitals), QA completo, testes de integração, deploy e lançamento.</p>
-        <div class="metal-badge"><span>15D</span></div>
+      <!-- Caixa surpresa -->
+      <div data-reveal style="margin-top:44px;text-align:center">
+        <div style="margin:0 auto;max-width:520px">
+          <p style="font-family:var(--font-serif);font-size:clamp(20px,3vw,28px);color:var(--heavy);margin-bottom:6px">Mas como cliente parceiro...</p>
+          <p style="font-size:13px;color:var(--neutral);margin-bottom:20px">Clientes das nossas empresas parceiras têm acesso a uma condição exclusiva. Clique para revelar.</p>
+          <button type="button" id="revealDealBtn" style="
+            display:inline-flex;align-items:center;gap:12px;
+            padding:18px 36px;border:none;border-radius:16px;cursor:pointer;
+            background:linear-gradient(145deg,rgba(8,98,73,.14),rgba(8,98,73,.04));
+            border:1px solid rgba(8,98,73,.35);
+            font-family:var(--font-serif);font-size:22px;color:#086249;
+            box-shadow:0 8px 32px rgba(0,0,0,.08);
+            transition:all .35s;animation:giftPulse 2s ease-in-out infinite;
+          ">
+            <span style="font-size:32px">🎁</span>
+            Revelar valor exclusivo
+          </button>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="investimento">
-  <div class="container">
-    <div style="text-align:center">
-      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,69,0,.12);border:1px solid rgba(255,69,0,.25);border-radius:30px;padding:10px 24px;font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;color:var(--orange);margin-bottom:16px" data-reveal>
-        <span style="font-size:14px">🔥</span> CONDIÇÃO ESPECIAL — VÁLIDA ATÉ 18/04/2026
+<!-- ═══ DEAL POPUP (planos completos) ═══ -->
+<style>
+@keyframes giftPulse{0%,100%{transform:scale(1);box-shadow:0 8px 32px rgba(0,0,0,.08)}50%{transform:scale(1.03);box-shadow:0 12px 40px rgba(8,98,73,.15)}}
+#revealDealBtn:hover{transform:scale(1.05)!important;border-color:rgba(8,98,73,.6);box-shadow:0 12px 48px rgba(8,98,73,.2)!important}
+.deal-popup{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px}
+.deal-popup.open{display:flex}
+.deal-popup-inner{
+  background:var(--surface);
+  border:1px solid rgba(192,192,192,.35);border-radius:24px;
+  padding:0;max-width:min(1100px,96vw);width:100%;
+  position:relative;box-shadow:0 40px 100px rgba(0,0,0,.3);
+  max-height:94vh;overflow-y:auto;
+}
+.deal-popup-close{position:fixed;top:20px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:1101}
+.deal-popup-close:hover{background:var(--heavy);border-color:rgba(255,255,255,.4)}
+.deal-header{text-align:center;padding:32px 24px 0}
+.deal-old{font-family:var(--font-serif);font-size:28px;color:var(--neutral);text-decoration:line-through;opacity:.5}
+.deal-new{font-family:var(--font-serif);font-size:clamp(32px,5vw,48px);color:var(--orange);line-height:1;margin:6px 0}
+.deal-save{display:inline-block;background:rgba(8,98,73,.1);border:1px solid rgba(8,98,73,.25);border-radius:20px;padding:6px 16px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#086249;margin:10px 0 4px}
+.deal-plans-section{padding:16px 24px 32px}
+@media(max-width:640px){.deal-popup-inner{border-radius:16px}.deal-header{padding:24px 16px 0}.deal-plans-section{padding:12px 12px 24px}}
+</style>
+
+<div class="deal-popup" id="dealPopup">
+  <button type="button" class="deal-popup-close" id="dealPopupClose">×</button>
+  <div class="deal-popup-inner">
+    <div class="deal-header">
+      <!-- Contador no topo do popup -->
+      <p style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:#C62828;margin-bottom:8px">OFERTA EXPIRA EM</p>
+      <div id="popupCountdown" style="display:inline-flex;gap:6px;margin-bottom:16px">
+        <div style="background:var(--heavy);color:var(--cream);border-radius:8px;padding:8px 10px;min-width:48px;text-align:center"><div id="pcdDays" style="font-family:var(--font-serif);font-size:20px;line-height:1">--</div><div style="font-family:var(--font-mono);font-size:7px;letter-spacing:1px;color:var(--neutral);margin-top:2px">DIAS</div></div>
+        <div style="background:var(--heavy);color:var(--cream);border-radius:8px;padding:8px 10px;min-width:48px;text-align:center"><div id="pcdHours" style="font-family:var(--font-serif);font-size:20px;line-height:1">--</div><div style="font-family:var(--font-mono);font-size:7px;letter-spacing:1px;color:var(--neutral);margin-top:2px">HORAS</div></div>
+        <div style="background:var(--heavy);color:var(--cream);border-radius:8px;padding:8px 10px;min-width:48px;text-align:center"><div id="pcdMins" style="font-family:var(--font-serif);font-size:20px;line-height:1">--</div><div style="font-family:var(--font-mono);font-size:7px;letter-spacing:1px;color:var(--neutral);margin-top:2px">MIN</div></div>
+        <div style="background:var(--heavy);color:var(--cream);border-radius:8px;padding:8px 10px;min-width:48px;text-align:center"><div id="pcdSecs" style="font-family:var(--font-serif);font-size:20px;line-height:1">--</div><div style="font-family:var(--font-mono);font-size:7px;letter-spacing:1px;color:var(--neutral);margin-top:2px">SEG</div></div>
       </div>
-      <div class="section-label" style="justify-content:center" data-reveal>INVESTIMENTO</div>
-      <h2 class="section-title" data-reveal>Valor <em>acessível,</em> resultado premium.</h2>
+
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:10px">Condição exclusiva parceiros</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:clamp(14px,3vw,32px);flex-wrap:wrap;opacity:.55;filter:grayscale(1);margin-bottom:16px">
+        <img src="https://cdn-boto.asaas.com/_next/static/media/new-header-logo.c914850c.svg" alt="Asaas" style="height:22px;filter:brightness(0)" loading="lazy">
+        <img src="https://acq-static-pages.pagseguro.com.br/static-pages/website/website-home-pages/_next/static/media/logo-pagbank-negative-filled.d2e6fd1a.svg" alt="PagBank" style="height:18px;filter:brightness(0)" loading="lazy">
+        <img src="https://contpix.com.br/_assets/v11/dca67586ffccd44d630911cd78db8c03827e5670.png" alt="ContPix" style="height:17px;filter:brightness(0)" loading="lazy">
+        <img src="https://melhorpix.com.br/wp-content/uploads/2023/07/new-logo2-1.png" alt="Melhor Pix" style="height:20px;filter:brightness(0)" loading="lazy">
+        <svg viewBox="0 0 60 24" style="height:17px" fill="none"><text x="0" y="18" font-family="var(--font-serif)" font-size="20" font-weight="700" fill="#1C1A16" opacity=".85">B3</text></svg>
+      </div>
+      <div class="deal-old">R$ 87.400,00</div>
+      <div class="deal-new">R$ 2.188,35</div>
+      <p style="font-size:15px;color:var(--neutral);margin-top:2px">/mês · durante 4 meses</p>
+      <div class="deal-save">ECONOMIA DE 89% · PARCEIRO NOOKWEB</div>
+      <p style="font-size:13px;color:var(--neutral);line-height:1.5;margin-top:8px">Desconto exclusivo para clientes das nossas empresas parceiras. Clique nos planos abaixo para detalhes.</p>
     </div>
 
-    <!-- ══ CARD DESENVOLVIMENTO — DESTAQUE ══ -->
-    <div style="margin-top:48px" data-reveal>
-      <div style="position:relative;background:linear-gradient(145deg,rgba(255,69,0,.06),rgba(255,69,0,.02));border:2px solid rgba(255,69,0,.3);border-radius:20px;padding:40px;overflow:hidden">
-        <div style="position:absolute;top:16px;right:16px;background:var(--orange);color:#fff;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;padding:6px 16px;border-radius:30px;font-weight:700">EM ANDAMENTO</div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
-          <span style="font-size:28px">💻</span>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:4px;color:var(--orange);text-transform:uppercase">Desenvolvimento</div>
-        </div>
-        <div style="font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);color:var(--cream);margin-bottom:4px">R$ 1.621,00<span style="font-size:18px;color:var(--neutral);font-family:var(--font-sans)">/mês</span></div>
-        <div style="font-size:14px;color:var(--neutral);margin-bottom:28px">durante 4 meses de desenvolvimento — equivalente a 1 salário mínimo mensal</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> E-commerce B2B completo (+10.000 SKUs)</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Busca avançada (autocomplete), carrinho, checkout</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Precificação dinâmica com múltiplas tabelas</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Portal do Cliente (dashboard, NF, boletos)</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Área do Vendedor (multicarrinho, metas)</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Painel Administrativo com KPIs</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Integração completa API Bling</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> 10 perfis de acesso com permissões</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Onboarding com crédito (Serasa/SPC)</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Identidade visual completa</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> 5 e-mails corporativos + automação</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> SEO + performance + segurança completa</div>
-          <div style="font-size:13px;color:var(--cream);display:flex;align-items:center;gap:8px"><span style="color:var(--orange);font-weight:700">✓</span> Deploy e lançamento (Vercel + Railway)</div>
+    <div class="deal-plans-section">
+      <p style="text-align:center;font-size:12px;color:var(--neutral);margin-bottom:4px">Hora avulsa fora do pacote: <strong style="color:var(--heavy)">R$ 108,00/hora</strong> · Horas não acumulam · Pacotes alteráveis mensalmente</p>
+
+      <div class="inv-marquee-wrap" aria-hidden="true" style="margin:12px 0">
+        <div class="inv-marquee">
+          <span>REACT</span><span>TYPESCRIPT</span><span>PYTHON</span><span>NODE.JS</span><span>FLUTTER</span><span>NEXT.JS</span><span>SUPABASE</span><span>AWS</span><span>DOCKER</span><span>GRAPHQL</span><span>TAILWIND</span><span>POSTGRESQL</span>
+          <span>REACT</span><span>TYPESCRIPT</span><span>PYTHON</span><span>NODE.JS</span><span>FLUTTER</span><span>NEXT.JS</span><span>SUPABASE</span><span>AWS</span><span>DOCKER</span><span>GRAPHQL</span><span>TAILWIND</span><span>POSTGRESQL</span>
         </div>
       </div>
-    </div>
 
-    <!-- ══ CARDS SECUNDÁRIOS — INFRA + SUSTENTAÇÃO ══ -->
-    <div class="pricing-grid" style="margin-top:24px">
-      <!-- Infraestrutura -->
-      <div class="price-card mens" data-reveal>
-        <div style="font-size:24px;margin-bottom:8px">🌐</div>
-        <div class="price-card-label" style="color:var(--green)">INFRAESTRUTURA</div>
-        <div class="price-amount" style="color:var(--green)">R$ 364</div>
-        <div class="price-sub">pagamento único — domínio por 10 anos</div>
-        <ul class="price-list">
-          <li>Registro do domínio .com.br por 10 anos</li>
-          <li>SSL/HTTPS via Cloudflare (gratuito)</li>
-          <li>Hospedagem inicial inclusa (Vercel/Railway)</li>
-          <li>CDN via Cloudflare</li>
-        </ul>
-      </div>
-      <!-- Sustentação -->
-      <div class="price-card mens" data-reveal="delay-1">
-        <div style="font-size:24px;margin-bottom:8px">🔧</div>
-        <div class="price-card-label" style="color:var(--green)">SUSTENTAÇÃO E SUPORTE</div>
-        <div class="price-amount" style="color:var(--green)">R$ 200 <span style="font-size:16px;color:var(--neutral)">a R$ 500/mês</span></div>
-        <div class="price-sub">a definir após análise da escala de operação</div>
-        <ul class="price-list">
-          <li>Manutenção do servidor e infraestrutura</li>
-          <li>Atualizações de segurança e patches</li>
-          <li>Correção de bugs críticos</li>
-          <li>Monitoramento de performance e uptime</li>
-          <li>Backup e restore</li>
-          <li>Suporte técnico (seg-sex, 9h-18h)</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ══ PACOTES DE MELHORIAS ══ -->
-    <div style="margin-top:32px" data-reveal>
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-        <span style="font-size:20px">📦</span>
-        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:4px;color:var(--silver);text-transform:uppercase">Pacotes de Melhorias — Opcionais</div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
-        <!-- Light -->
-        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;text-align:center;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,69,0,.2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform='none'">
-          <div style="font-family:var(--font-serif);font-size:14px;color:var(--cream);margin-bottom:4px">Light</div>
-          <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral);margin-bottom:12px">4 HORAS/MÊS</div>
-          <div style="font-family:var(--font-serif);font-size:28px;color:var(--orange);margin-bottom:4px">R$ 300</div>
-          <div style="font-size:11px;color:var(--neutral)">Ajustes pontuais</div>
+      <div class="inv-layout" style="position:relative;z-index:2">
+        <div class="inv-wm" id="invWatermark" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-serif);font-size:clamp(140px,24vw,280px);font-weight:400;color:var(--heavy);opacity:.025;line-height:1;pointer-events:none;font-style:italic;white-space:nowrap">07</div>
+        <div class="inv-list" id="invPlanList">
+          <button type="button" class="inv-row" data-plan="0"><span class="inv-row-bar"></span><span class="inv-row-num">01</span><span class="inv-row-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M5 7h2l3.5 11h9l2.5-7H9" stroke="#c0c0c0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="22" r="1.3" stroke="#c0c0c0" stroke-width="1"/><circle cx="19.5" cy="22" r="1.3" stroke="#c0c0c0" stroke-width="1"/></svg></span><span class="inv-row-text"><span class="inv-row-title">Desenvolvimento</span><span class="inv-row-sub">4 Meses · Fase Projeto</span></span><span class="inv-row-arrow">↗</span></button>
+          <button type="button" class="inv-row" data-plan="1"><span class="inv-row-bar"></span><span class="inv-row-num">02</span><span class="inv-row-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#c0c0c0" stroke-width="1"/><line x1="14" y1="4" x2="14" y2="24" stroke="#c0c0c0" stroke-width=".8"/><ellipse cx="14" cy="14" rx="5.5" ry="10" stroke="#c0c0c0" stroke-width=".8"/><line x1="4" y1="14" x2="24" y2="14" stroke="#c0c0c0" stroke-width=".8"/></svg></span><span class="inv-row-text"><span class="inv-row-title">Infraestrutura</span><span class="inv-row-sub">Domínio · 10 Anos</span></span><span class="inv-row-arrow">↗</span></button>
+          <button type="button" class="inv-row" data-plan="2"><span class="inv-row-bar"></span><span class="inv-row-num">03</span><span class="inv-row-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M8 20c-2.5 0-4-1.8-4-4s1.5-4 4-4c0-3.2 2.8-5.8 6-5.8S20 8.8 20 12c2.2 0 4 1.8 4 4s-1.8 4-4 4" stroke="#c0c0c0" stroke-width="1" stroke-linecap="round"/><path d="M14 16v6M11.5 19.5L14 16l2.5 3.5" stroke="#c0c0c0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="inv-row-text"><span class="inv-row-title">Sustentação</span><span class="inv-row-sub">Pós Go-Live</span></span><span class="inv-row-arrow">↗</span></button>
+          <button type="button" class="inv-row" data-plan="3"><span class="inv-row-bar"></span><span class="inv-row-num">04</span><span class="inv-row-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="8" y="3" width="12" height="22" rx="2.5" stroke="#c0c0c0" stroke-width="1"/><line x1="12" y1="22" x2="16" y2="22" stroke="#c0c0c0" stroke-width="1" stroke-linecap="round"/></svg></span><span class="inv-row-text"><span class="inv-row-title">Pacote Light</span><span class="inv-row-sub">4 Horas / Mês</span></span><span class="inv-row-arrow">↗</span></button>
+          <button type="button" class="inv-row" data-plan="4"><span class="inv-row-bar"></span><span class="inv-row-num">05</span><span class="inv-row-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="8" height="8" rx="1" stroke="#c0c0c0" stroke-width="1"/><rect x="16" y="4" width="8" height="8" rx="1" stroke="#c0c0c0" stroke-width="1"/><rect x="4" y="16" width="8" height="8" rx="1" stroke="#c0c0c0" stroke-width="1"/><rect x="16" y="16" width="8" height="8" rx="1" stroke="#c0c0c0" stroke-width="1"/><line x1="12" y1="8" x2="16" y2="8" stroke="#c0c0c0" stroke-width=".6" stroke-dasharray="2 2"/><line x1="8" y1="12" x2="8" y2="16" stroke="#c0c0c0" stroke-width=".6" stroke-dasharray="2 2"/></svg></span><span class="inv-row-text"><span class="inv-row-title">Pacote Standard</span><span class="inv-row-sub">8 Horas / Mês</span></span><span class="inv-row-arrow">↗</span></button>
+          <button type="button" class="inv-row" data-plan="5"><span class="inv-row-bar"></span><span class="inv-row-num">06</span><span class="inv-row-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><circle cx="7" cy="14" r="2.5" stroke="#c0c0c0" stroke-width="1"/><circle cx="21" cy="14" r="2.5" stroke="#c0c0c0" stroke-width="1"/><line x1="9.5" y1="14" x2="18.5" y2="14" stroke="#c0c0c0" stroke-width="1"/><path d="M16 10.5l3.5 3.5-3.5 3.5" stroke="#c0c0c0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="inv-row-text"><span class="inv-row-title">Pacote Premium</span><span class="inv-row-sub">16 Horas / Mês</span></span><span class="inv-row-arrow">↗</span></button>
+          <button type="button" class="inv-row" data-plan="6"><span class="inv-row-bar"></span><span class="inv-row-num">07</span><span class="inv-row-ico"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="7" y="5" width="14" height="16" rx="1.5" stroke="#c0c0c0" stroke-width="1"/><circle cx="11" cy="10" r="2" stroke="#c0c0c0" stroke-width="1"/><circle cx="17" cy="10" r="2" stroke="#c0c0c0" stroke-width="1"/><path d="M10 18h8" stroke="#c0c0c0" stroke-width="1" stroke-linecap="round"/></svg></span><span class="inv-row-text"><span class="inv-row-title">Pacote Enterprise</span><span class="inv-row-sub">24 Horas / Mês</span></span><span class="inv-row-arrow">↗</span></button>
         </div>
-        <!-- Standard — RECOMENDADO -->
-        <div style="background:rgba(255,69,0,.06);border:2px solid rgba(255,69,0,.3);border-radius:16px;padding:24px;text-align:center;position:relative;transition:all .3s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
-          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;padding:4px 14px;border-radius:20px;font-weight:700;white-space:nowrap">RECOMENDADO</div>
-          <div style="font-family:var(--font-serif);font-size:14px;color:var(--cream);margin-bottom:4px">Standard</div>
-          <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral);margin-bottom:12px">8 HORAS/MÊS</div>
-          <div style="font-family:var(--font-serif);font-size:28px;color:var(--orange);margin-bottom:4px">R$ 500</div>
-          <div style="font-size:11px;color:var(--neutral)">Melhorias regulares</div>
-        </div>
-        <!-- Premium -->
-        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;text-align:center;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,69,0,.2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform='none'">
-          <div style="font-family:var(--font-serif);font-size:14px;color:var(--cream);margin-bottom:4px">Premium</div>
-          <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral);margin-bottom:12px">16 HORAS/MÊS</div>
-          <div style="font-family:var(--font-serif);font-size:28px;color:var(--orange);margin-bottom:4px">R$ 900</div>
-          <div style="font-size:11px;color:var(--neutral)">Evolução contínua</div>
-        </div>
-        <!-- Enterprise -->
-        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;text-align:center;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,69,0,.2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform='none'">
-          <div style="font-family:var(--font-serif);font-size:14px;color:var(--cream);margin-bottom:4px">Enterprise</div>
-          <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral);margin-bottom:12px">24 HORAS/MÊS</div>
-          <div style="font-family:var(--font-serif);font-size:28px;color:var(--orange);margin-bottom:4px">R$ 1.200</div>
-          <div style="font-size:11px;color:var(--neutral)">Desenvolvimento ágil</div>
+        <div class="inv-panel-wrap">
+          <div class="inv-panel" id="invPanelRoot">
+            <div class="inv-panel-corners"><span class="c1"></span><span class="c2"></span></div>
+            <div id="invPanelInner"></div>
+          </div>
         </div>
       </div>
-      <div style="margin-top:16px;font-size:11px;color:var(--neutral);line-height:1.8;text-align:center">
-        Hora avulsa fora do pacote: <strong style="color:var(--cream)">R$ 80,00/hora</strong> · Horas não acumulam · Pacotes alteráveis mensalmente
+
+      <div style="text-align:center;margin-top:20px">
+        <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20exclusiva%20da%20Gold%20Luxy%20e%20quero%20fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" style="min-width:280px;justify-content:center">
+          Garantir esta condição via WhatsApp
+        </a>
       </div>
-    </div>
 
-    <!-- ══ RESUMO FINANCEIRO ══ -->
-    <div style="margin-top:32px" data-reveal>
-      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:4px;color:var(--silver);text-transform:uppercase;margin-bottom:20px">📊 Resumo Financeiro</div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden">
-        <div style="display:grid;grid-template-columns:1fr auto auto;font-size:13px">
-          <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.06);font-weight:600;color:var(--cream);font-size:11px;font-family:var(--font-mono);letter-spacing:2px">ITEM</div>
-          <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.06);font-weight:600;color:var(--cream);font-size:11px;font-family:var(--font-mono);letter-spacing:2px;text-align:right">VALOR</div>
-          <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.06);font-weight:600;color:var(--cream);font-size:11px;font-family:var(--font-mono);letter-spacing:2px;text-align:right">PERÍODO</div>
-
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--cream)">Desenvolvimento</div>
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--orange);font-weight:700;text-align:right">R$ 1.621,00/mês</div>
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--neutral);text-align:right">4 meses</div>
-
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--cream)">Infraestrutura (Domínio)</div>
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--orange);font-weight:700;text-align:right">R$ 364,00</div>
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--neutral);text-align:right">Pagamento único (10 anos)</div>
-
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--cream)">Sustentação</div>
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--green);font-weight:700;text-align:right">R$ 200 a R$ 500/mês</div>
-          <div style="padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--neutral);text-align:right">Mensal (pós-lançamento)</div>
-
-          <div style="padding:12px 20px;color:var(--cream)">Pacotes de Melhorias</div>
-          <div style="padding:12px 20px;color:var(--neutral);font-weight:600;text-align:right">R$ 300 a R$ 1.200/mês</div>
-          <div style="padding:12px 20px;color:var(--neutral);text-align:right">Opcional</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ CENÁRIOS PÓS-LANÇAMENTO ══ -->
-    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px" data-reveal>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;text-align:center">
-        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--silver);margin-bottom:8px">CENÁRIO BÁSICO</div>
-        <div style="font-family:var(--font-serif);font-size:22px;color:var(--cream);margin-bottom:6px">R$ 200 a R$ 500</div>
-        <div style="font-size:11px;color:var(--neutral)">/mês · Apenas sustentação</div>
-      </div>
-      <div style="background:rgba(255,69,0,.05);border:1px solid rgba(255,69,0,.2);border-radius:14px;padding:20px;text-align:center">
-        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--orange);margin-bottom:8px">COM MELHORIAS</div>
-        <div style="font-family:var(--font-serif);font-size:22px;color:var(--cream);margin-bottom:6px">R$ 500 a R$ 1.000</div>
-        <div style="font-size:11px;color:var(--neutral)">/mês · Sustentação + pacote</div>
-      </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;text-align:center">
-        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--silver);margin-bottom:8px">CENÁRIO COMPLETO</div>
-        <div style="font-family:var(--font-serif);font-size:22px;color:var(--cream);margin-bottom:6px">R$ 700 a R$ 1.700</div>
-        <div style="font-size:11px;color:var(--neutral)">/mês · Sustentação + enterprise</div>
-      </div>
-    </div>
-
-    <!-- Observações -->
-    <div style="margin-top:24px;padding:20px 24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;font-size:12px;color:var(--neutral);line-height:1.8" data-reveal>
-      <strong style="color:var(--cream)">Observações:</strong><br>
-      · Os valores de desenvolvimento são fixos mensalmente até conclusão<br>
-      · Solução em código sob medida; código-fonte de titularidade do cliente, nos termos contratuais<br>
-      · Planos recorrentes (sustentação / combinados) preveem fidelidade mínima de 12 meses conforme plano assinado<br>
-      · Hospedagem inicial inclusa (Vercel/Railway tier gratuito)<br>
-      · Integrações com APIs externas (Bling, pagamentos) podem ter custos adicionais conforme uso<br>
-      · Valores de sustentação serão definidos após análise da escala de operação<br>
-      · Pacotes de melhorias são opcionais e independentes da sustentação
     </div>
   </div>
-</section>
+</div>
 
 <!-- ═══ CTA INTERMEDIÁRIO 2 ═══ -->
 <div style="padding:48px 0;text-align:center;background:var(--black-rich);border-top:1px solid rgba(255,255,255,.04)">
   <p style="font-size:14px;color:var(--neutral);margin-bottom:16px" data-reveal>Pronto para transformar a Gold Luxy?</p>
-  <a href="https://wa.me/5511960630085?text=Olá! Vi a proposta da Gold Luxy e gostaria de fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal>
+  <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal>
     Fechar Proposta via WhatsApp
   </a>
 </div>
 
 <!-- ═══ NOOKLEAD ═══ -->
-<section class="nooklead-section" id="nooklead">
-  <div class="container">
-    <div class="section-label" data-reveal>INCLUSO NA MENSALIDADE</div>
-    <h2 class="section-title" data-reveal>Bônus <em>oculto</em> da mensalidade</h2>
-    <p class="section-desc" data-reveal>Conteúdo especial: clique para liberar tudo que está incluso no plano.</p>
-    <div class="bonus-trigger-wrap" data-reveal>
-      <a href="#nookleadBonusPopup" class="bonus-trigger">
-        <div class="gift-3d">🎁</div>
-        <div class="bonus-title">Clique para ver um bônus</div>
-        <div class="bonus-sub">abrir benefícios completos</div>
-      </a>
+<section class="nooklead-section" id="nooklead" style="background:#0D0D0D;padding:80px 24px">
+  <div style="max-width:800px;margin:0 auto;text-align:center">
+    <div style="font-family:var(--font-mono);font-size:11px;color:var(--orange);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;font-weight:600" data-reveal>Incluso na mensalidade</div>
+    <h2 style="font-family:var(--font-serif);font-size:clamp(28px,4.5vw,48px);font-style:italic;font-weight:400;color:#fff;line-height:1.15;margin:0 0 16px" data-reveal>
+      Seu concorrente está fechando os leads que você <strong style="color:var(--orange)">ainda não encontrou.</strong>
+    </h2>
+    <p style="font-size:15px;color:#888;line-height:1.7;max-width:600px;margin:0 auto 24px" data-reveal>Acesso a +58,4 milhões de CNPJs da Receita Federal. Prospecção, qualificação com IA e pipeline — tudo incluso no plano Gold Luxy.</p>
+
+    <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:32px" data-reveal>
+      <div style="text-align:center"><div style="font-family:var(--font-serif);font-size:32px;color:var(--orange);font-style:italic;font-weight:700">58,4M</div><div style="font-size:12px;color:#888;margin-top:2px">CNPJs disponíveis</div></div>
+      <div style="text-align:center"><div style="font-family:var(--font-serif);font-size:32px;color:var(--orange);font-style:italic;font-weight:700">98%</div><div style="font-size:12px;color:#888;margin-top:2px">taxa de abertura WhatsApp</div></div>
+      <div style="text-align:center"><div style="font-family:var(--font-serif);font-size:32px;color:var(--orange);font-style:italic;font-weight:700">11min</div><div style="font-size:12px;color:#888;margin-top:2px">até o 1º lead qualificado</div></div>
     </div>
+
+    <img src="https://crm.nooklead.com.br/assets/logo_nooklead_1769031775013-B0YigWr6.jpeg" alt="NookLead" style="height:40px;margin:0 auto 24px;border-radius:8px" data-reveal>
+
+    <button type="button" id="nookleadRevealBtn" style="
+      display:inline-flex;align-items:center;gap:12px;
+      padding:16px 32px;border:none;border-radius:14px;cursor:pointer;
+      background:linear-gradient(145deg,rgba(8,98,73,.18),rgba(8,98,73,.06));
+      border:1px solid rgba(8,98,73,.4);
+      font-family:var(--font-serif);font-size:20px;color:#8df4cc;
+      box-shadow:0 8px 32px rgba(0,0,0,.2);
+      transition:all .35s;animation:giftPulse 2s ease-in-out infinite;
+    " data-reveal>
+      <span style="font-size:28px">🎁</span>
+      Ver tudo que está incluso
+    </button>
   </div>
 </section>
 
@@ -2311,17 +2499,17 @@ button.inv-row{
           <div class="cc-value">parceria@nookweb.com.br</div>
         </div>
       </a>
-      <a href="https://wa.me/5511960630085" class="contact-card" target="_blank" rel="noopener noreferrer">
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20falar%20com%20a%20Nookweb." class="contact-card" target="_blank" rel="noopener noreferrer">
         <div class="cc-icon">💬</div>
         <div class="cc-info">
           <div class="cc-label">WHATSAPP</div>
-          <div class="cc-value">(11) 96063-0085</div>
+          <div class="cc-value">WhatsApp</div>
         </div>
       </a>
     </div>
 
     <div style="margin-bottom:32px" data-reveal>
-      <a href="https://wa.me/5511960630085?text=Olá! Vi a proposta da Gold Luxy e gostaria de fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer">
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer">
         Fechar Proposta via WhatsApp
       </a>
     </div>
@@ -2345,26 +2533,94 @@ button.inv-row{
     <img src="https://nookweb.com.br/blackiceconfecoes/cases-latem-popup.png" alt="Imagem ampliada Latem Atacadista E-commerce">
   </div>
 </div>
-<div class="img-popup bonus-popup" id="nookleadBonusPopup" role="dialog" aria-label="Bônus NookLead incluso na mensalidade">
-  <div class="img-popup-inner">
-    <a href="#nooklead" class="img-popup-close" aria-label="Fechar popup">×</a>
-    <h3>NookLead — Bônus de CRM e Geração de Leads</h3>
-    <p>Esses recursos estão inclusos para acelerar operação comercial e escalar prospecção com dados e processos comerciais.</p>
-    <ul class="bonus-list">
-      <li><strong>Leads via CNPJ:</strong> geração em tempo real.</li>
-      <li><strong>Pipeline Kanban:</strong> gestão visual do funil.</li>
-      <li><strong>Qualificação:</strong> controle por estágio e prioridade.</li>
-      <li><strong>Dashboard:</strong> métricas executivas de vendas.</li>
-      <li><strong>Equipe:</strong> gestão de usuários comerciais.</li>
-      <li><strong>WhatsApp Business:</strong> integração de contato.</li>
-      <li><strong>Filtros:</strong> por região, segmento e porte.</li>
-      <li><strong>Exportação:</strong> CSV/Excel para operação.</li>
-      <li><strong>Suporte dedicado:</strong> acompanhamento Nookweb.</li>
-      <li><strong>Novo:</strong> obter leads para encontrar decisores de fornecedores e clientes B2B.</li>
-    </ul>
+<!-- NookLead Popup -->
+<style>
+.nl-popup{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px}
+.nl-popup.open{display:flex}
+.nl-popup-inner{
+  background:var(--surface);border:1px solid rgba(192,192,192,.35);border-radius:24px;
+  padding:0;max-width:min(920px,96vw);width:100%;position:relative;
+  box-shadow:0 40px 100px rgba(0,0,0,.3);max-height:94vh;overflow-y:auto;
+}
+.nl-popup-close{position:fixed;top:20px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1101;transition:all .3s}
+.nl-popup-close:hover{background:var(--heavy);border-color:rgba(255,255,255,.4)}
+.nl-header{text-align:center;padding:32px 24px 20px;border-bottom:1px solid rgba(28,26,22,.08)}
+.nl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:24px;max-width:720px;margin:0 auto}
+.nl-card{background:rgba(255,255,255,.5);border:1px solid rgba(28,26,22,.06);border-radius:14px;padding:18px 20px;transition:all .3s}
+.nl-card:hover{border-color:rgba(8,98,73,.25);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.nl-card-ico{font-size:22px;margin-bottom:8px}
+.nl-card-title{font-family:var(--font-serif);font-size:17px;color:var(--heavy);margin-bottom:4px}
+.nl-card-desc{font-size:12px;color:var(--neutral);line-height:1.5}
+.nl-screenshot{margin:0 24px 24px;border-radius:14px;overflow:hidden;border:1px solid rgba(28,26,22,.08);box-shadow:0 8px 32px rgba(0,0,0,.06)}
+.nl-screenshot img{width:100%;display:block}
+.nl-footer{text-align:center;padding:0 24px 28px}
+@media(max-width:640px){.nl-grid{grid-template-columns:1fr;padding:16px}.nl-header{padding:24px 16px 16px}}
+</style>
+<div class="nl-popup" id="nookleadPopup">
+  <button type="button" class="nl-popup-close" id="nookleadPopupClose">×</button>
+  <div class="nl-popup-inner">
+    <div class="nl-header">
+      <img src="https://crm.nooklead.com.br/assets/logo_nooklead_1769031775013-B0YigWr6.jpeg" alt="NookLead" style="height:36px;border-radius:8px;margin:0 auto 12px">
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:#086249;text-transform:uppercase;margin-bottom:6px">Incluso na sua mensalidade</p>
+      <h3 style="font-family:var(--font-serif);font-size:clamp(22px,3vw,32px);color:var(--heavy);font-weight:400;margin:0 0 6px">CRM + Geração de Leads com IA</h3>
+      <p style="font-size:13px;color:var(--neutral);line-height:1.5">Acesso a +58,4M de CNPJs da Receita Federal. Do primeiro lead ao fechamento — sem custo adicional.</p>
+    </div>
+
+    <div class="nl-grid">
+      <div class="nl-card">
+        <div class="nl-card-ico">🔍</div>
+        <div class="nl-card-title">Prospecção Inteligente</div>
+        <div class="nl-card-desc">58,4M de CNPJs com filtros cirúrgicos: região, segmento, porte, faturamento. Dados atualizados da Receita Federal.</div>
+      </div>
+      <div class="nl-card">
+        <div class="nl-card-ico">🤖</div>
+        <div class="nl-card-title">SDR Virtual com IA</div>
+        <div class="nl-card-desc">Qualificação automática 24/7 com metodologia BANT. Custa menos que um almoço de negócios.</div>
+      </div>
+      <div class="nl-card">
+        <div class="nl-card-ico">📋</div>
+        <div class="nl-card-title">Pipeline Kanban</div>
+        <div class="nl-card-desc">Gestão visual do funil de vendas com drag-and-drop. Controle por estágio e prioridade.</div>
+      </div>
+      <div class="nl-card">
+        <div class="nl-card-ico">💬</div>
+        <div class="nl-card-title">WhatsApp Automatizado</div>
+        <div class="nl-card-desc">Mensagens automáticas com 98% de taxa de abertura. Integração nativa com WhatsApp Business.</div>
+      </div>
+      <div class="nl-card">
+        <div class="nl-card-ico">📊</div>
+        <div class="nl-card-title">Dashboard Executivo</div>
+        <div class="nl-card-desc">Métricas de vendas em tempo real. Exportação CSV/Excel para operação.</div>
+      </div>
+      <div class="nl-card">
+        <div class="nl-card-ico">🏆</div>
+        <div class="nl-card-title">Gamificação de Vendas</div>
+        <div class="nl-card-desc">Rankings em tempo real e competição entre equipe. +23% em vendas com engajamento.</div>
+      </div>
+      <div class="nl-card">
+        <div class="nl-card-ico">🔗</div>
+        <div class="nl-card-title">Enriquecimento em Tempo Real</div>
+        <div class="nl-card-desc">Telefone, e-mail, sócios e faturamento estimado preenchidos automaticamente.</div>
+      </div>
+      <div class="nl-card">
+        <div class="nl-card-ico">👥</div>
+        <div class="nl-card-title">Gestão de Equipe</div>
+        <div class="nl-card-desc">Múltiplos usuários comerciais com permissões. Acompanhamento Nookweb dedicado.</div>
+      </div>
+    </div>
+
+    <div class="nl-screenshot">
+      <img src="nooklead-crm-login.png" alt="NookLead CRM — Plataforma de Prospecção B2B" style="width:100%">
+    </div>
+
+    <div class="nl-footer">
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--neutral);margin-bottom:12px">PLANO INDIVIDUAL: <span style="text-decoration:line-through">R$ 89/MÊS</span> · <strong style="color:#086249">INCLUSO NO SEU PLANO</strong></p>
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20NookLead%20incluso%20na%20proposta%20Gold%20Luxy." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" style="min-width:260px;justify-content:center">
+        Ativar NookLead via WhatsApp
+      </a>
+    </div>
   </div>
 </div>
-
 <!-- ═══ SCRIPTS ═══ -->
 <script>
 // Scroll reveal
@@ -2401,6 +2657,161 @@ const counterObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 counters.forEach(c => counterObserver.observe(c));
 
+// Investimento — lista + painel (Gold Luxy)
+(function initGoldLuxyInvPlans() {
+  const INV_PLANS_GL = [
+    {
+      wm: '01',
+      meta: '<span class="n">01</span><span class="bar"></span><span>4 MESES · FASE PROJETO</span>',
+      title: 'Desenvolvimento',
+      price: 'R$ 2.188,35',
+      note: '/mês · durante 4 meses',
+      desc: 'Implementação do e-commerce B2B Gold Luxy em código sob medida, com entregas por fase até o go-live.',
+      items: [
+        'E-commerce B2B completo (+10.000 SKUs), busca, carrinho e checkout',
+        'Precificação dinâmica, portal do cliente, área do vendedor e painel com KPIs',
+        'Integração API Bling, onboarding com crédito (Serasa/SPC), 10 perfis de acesso',
+        'Identidade visual, 5 e-mails + automação, SEO, performance, segurança e deploy (Vercel + Railway)'
+      ],
+      tags: ['B2B', 'BLING', '4 MESES'],
+      badge: null
+    },
+    {
+      wm: '02',
+      meta: '<span class="n">02</span><span class="bar"></span><span>DOMÍNIO · 10 ANOS</span>',
+      title: 'Infraestrutura',
+      price: 'R$ 491,40',
+      note: 'pagamento único — domínio por 10 anos',
+      desc: 'Registro e camadas de publicação alinhados à proposta comercial.',
+      items: [
+        'Registro do domínio .com.br por 10 anos',
+        'SSL/HTTPS via Cloudflare (gratuito)',
+        'Hospedagem inicial inclusa (Vercel/Railway)',
+        'CDN via Cloudflare'
+      ],
+      tags: ['SSL', 'CDN', '10 ANOS'],
+      badge: null
+    },
+    {
+      wm: '03',
+      meta: '<span class="n">03</span><span class="bar"></span><span>PÓS GO-LIVE</span>',
+      title: 'Sustentação e suporte',
+      price: 'R$ 270 <span style="font-size:18px;color:var(--neutral);font-family:var(--font-sans)">a R$ 675</span>',
+      note: '/mês · a definir após análise da escala de operação',
+      desc: 'Manutenção e suporte após o lançamento, conforme plano contratado.',
+      items: [
+        'Manutenção do servidor e infraestrutura',
+        'Atualizações de segurança e patches',
+        'Correção de bugs críticos',
+        'Monitoramento de performance e uptime',
+        'Backup e restore',
+        'Suporte técnico (seg–sex, 9h–18h)'
+      ],
+      tags: ['SLA', 'SUPORTE', 'MENSAL'],
+      badge: null
+    },
+    {
+      wm: '04',
+      meta: '<span class="n">04</span><span class="bar"></span><span>4 HORAS / MÊS</span>',
+      title: 'Pacote Light',
+      price: 'R$ 405',
+      note: '/mês · ajustes pontuais',
+      desc: 'Pacote opcional de horas para melhorias pequenas após o go-live.',
+      items: ['Até 4 horas de desenvolvimento por mês', 'Ajustes pontuais de UX, conteúdo e integrações leves', 'Fila única de demandas', 'Combinável com sustentação'],
+      tags: ['4H', 'PONTUAL', 'OPCIONAL'],
+      badge: null
+    },
+    {
+      wm: '05',
+      meta: '<span class="n">05</span><span class="bar"></span><span>8 HORAS / MÊS</span>',
+      title: 'Pacote Standard',
+      price: 'R$ 675',
+      note: '/mês · melhorias regulares',
+      desc: 'Ritmo constante de melhorias no produto após o go-live.',
+      items: ['Até 8 horas de desenvolvimento por mês', 'Melhorias regulares e pequenas features', 'Priorização com o time Nookweb', 'Relatório resumido de entregas'],
+      tags: ['8H', 'ROADMAP', 'OPCIONAL'],
+      badge: 'RECOMENDADO'
+    },
+    {
+      wm: '06',
+      meta: '<span class="n">06</span><span class="bar"></span><span>16 HORAS / MÊS</span>',
+      title: 'Pacote Premium',
+      price: 'R$ 1.215',
+      note: '/mês · evolução contínua',
+      desc: 'Mais throughput para evolução contínua do produto.',
+      items: ['Até 16 horas de desenvolvimento por mês', 'Múltiplas frentes quando necessário', 'Integrações e performance', 'Alinhamento quinzenal'],
+      tags: ['16H', 'EVOLUÇÃO', 'OPCIONAL'],
+      badge: null
+    },
+    {
+      wm: '07',
+      meta: '<span class="n">07</span><span class="bar"></span><span>24 HORAS / MÊS</span>',
+      title: 'Pacote Enterprise',
+      price: 'R$ 1.620',
+      note: '/mês · desenvolvimento ágil dedicado',
+      desc: 'Máximo de horas mensais do pacote para projetos que precisam de throughput próximo a um squad dedicado.',
+      items: [
+        '24 horas de desenvolvimento por mês',
+        'Desenvolvimento ágil com priorização próxima',
+        'Suporte a múltiplas frentes (front, API, integrações)',
+        'Alinhamento estratégico com o produto',
+        'Para empresas com roadmap agressivo'
+      ],
+      tags: ['24H', 'SQUAD', 'THROUGHPUT'],
+      badge: null
+    }
+  ];
+
+  function renderGoldLuxyInvPanel(idx) {
+    const p = INV_PLANS_GL[idx];
+    if (!p) return;
+    const wm = document.getElementById('invWatermark');
+    if (wm) wm.textContent = p.wm;
+    const inner = document.getElementById('invPanelInner');
+    if (!inner) return;
+    const tagsHtml = (p.tags || []).map(function (t) { return '<span>' + t + '</span>'; }).join('');
+    const badgeHtml = p.badge
+      ? '<div class="inv-panel-badge inv-panel-badge--orange">' + p.badge + '</div>'
+      : '';
+    inner.innerHTML =
+      badgeHtml +
+      '<div class="inv-panel-head"><div class="inv-shape" aria-hidden="true"></div><div><div class="inv-panel-meta">' +
+      p.meta +
+      '</div><h3>' +
+      p.title +
+      '</h3></div></div>' +
+      '<div class="inv-panel-price">' +
+      p.price +
+      '</div>' +
+      '<div class="inv-panel-note">' +
+      p.note +
+      '</div>' +
+      '<p class="inv-panel-desc">' +
+      p.desc +
+      '</p>' +
+      '<ul>' +
+      p.items.map(function (i) { return '<li>' + i + '</li>'; }).join('') +
+      '</ul>' +
+      (tagsHtml ? '<div class="inv-tags">' + tagsHtml + '</div>' : '') +
+      '<div class="inv-panel-line" aria-hidden="true"></div>';
+  }
+
+  const list = document.getElementById('invPlanList');
+  if (!list) return;
+  const rows = list.querySelectorAll('button[data-plan]');
+  rows.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const i = parseInt(btn.getAttribute('data-plan'), 10);
+      renderGoldLuxyInvPanel(i);
+    });
+    btn.addEventListener('mouseenter', function () {
+      const i = parseInt(btn.getAttribute('data-plan'), 10);
+      renderGoldLuxyInvPanel(i);
+    });
+  });
+  renderGoldLuxyInvPanel(6);
+})();
+
 // Palette builder
 const pbRadios = document.querySelectorAll('.pb-swatch input');
 const pbPreview = document.getElementById('palettePreview');
@@ -2418,6 +2829,38 @@ function updatePalettePreview() {
   pbRadios.forEach(r => { if (r.checked) sel[r.name] = { name: r.dataset.name, hex: r.dataset.hex }; });
   const count = Object.keys(sel).length;
   pbCount.textContent = count + ' DE 4 SELECIONADAS' + (count === 4 ? ' — PALETA COMPLETA ✓' : '');
+
+  // Envia ao Supabase quando paleta completa
+  if (count === 4 && !window._paletteSaved) {
+    window._paletteSaved = true;
+    var SUPABASE_URL = 'https://evsmrubflssikaabfana.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c21ydWJmbHNzaWthYWJmYW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDg5MzIsImV4cCI6MjA5MDgyNDkzMn0.dLQym6yW_gWIYdB0DETw1b_3fgPbXrgTFPkkFIkOisg';
+    var payload = {
+      primary_name: sel['pb-primary']?.name || null,
+      primary_hex: sel['pb-primary']?.hex || null,
+      secondary_name: sel['pb-secondary']?.name || null,
+      secondary_hex: sel['pb-secondary']?.hex || null,
+      neutral_name: sel['pb-neutral']?.name || null,
+      neutral_hex: sel['pb-neutral']?.hex || null,
+      cta_name: sel['pb-cta']?.name || null,
+      cta_hex: sel['pb-cta']?.hex || null,
+      user_agent: navigator.userAgent.substring(0, 200)
+    };
+    fetch(SUPABASE_URL + '/rest/v1/goldluxy_paletas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    }).catch(function(){});
+    // Reset flag after 30s para permitir nova escolha
+    setTimeout(function(){ window._paletteSaved = false; }, 30000);
+  } else if (count < 4) {
+    window._paletteSaved = false;
+  }
 
   if (count >= 2) {
     pbPreview.classList.add('active');
@@ -2443,8 +2886,9 @@ pbRadios.forEach(r => r.addEventListener('change', updatePalettePreview));
 // Smooth anchor scrolling
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    if (a.getAttribute('href') === '#fipsImagePopup' || a.getAttribute('href') === '#latemImagePopup' || a.getAttribute('href') === '#nookleadBonusPopup') return;
-    const target = document.querySelector(a.getAttribute('href'));
+    const href = a.getAttribute('href');
+    if (href === '#fipsImagePopup' || href === '#latemImagePopup') return;
+    const target = document.querySelector(href);
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });
@@ -2457,6 +2901,42 @@ document.querySelectorAll('.faq-item').forEach(function (item) {
       if (other !== item) other.removeAttribute('open');
     });
   });
+});
+
+// Countdown timer — expira segunda 06/04/2026 às 12:00 BRT
+(function(){
+  var deadline = new Date('2026-04-06T15:00:00Z'); // 12:00 BRT = 15:00 UTC
+  function setEl(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
+  function tick(){
+    var now = Date.now(), diff = deadline - now;
+    if(diff<=0){ setEl('pcdDays','00');setEl('pcdHours','00');setEl('pcdMins','00');setEl('pcdSecs','00');return; }
+    var d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
+    var ds=String(d).padStart(2,'0'),hs=String(h).padStart(2,'0'),ms=String(m).padStart(2,'0'),ss=String(s).padStart(2,'0');
+    setEl('pcdDays',ds);setEl('pcdHours',hs);setEl('pcdMins',ms);setEl('pcdSecs',ss);
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+// Deal popup
+document.getElementById('revealDealBtn').addEventListener('click',function(){
+  document.getElementById('dealPopup').classList.add('open');
+});
+document.getElementById('dealPopupClose').addEventListener('click',function(){
+  document.getElementById('dealPopup').classList.remove('open');
+});
+document.getElementById('dealPopup').addEventListener('click',function(e){
+  if(e.target===this) this.classList.remove('open');
+});
+
+// NookLead popup
+document.getElementById('nookleadRevealBtn').addEventListener('click',function(){
+  document.getElementById('nookleadPopup').classList.add('open');
+});
+document.getElementById('nookleadPopupClose').addEventListener('click',function(){
+  document.getElementById('nookleadPopup').classList.remove('open');
+});
+document.getElementById('nookleadPopup').addEventListener('click',function(e){
+  if(e.target===this) this.classList.remove('open');
 });
 </script>
 
