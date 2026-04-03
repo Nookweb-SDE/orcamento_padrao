@@ -1402,6 +1402,93 @@ button.inv-row:focus-visible{
 /* ═══ SHADER CONTAINER ═══ */
 .shader-container-nookweb{pointer-events:none!important}
 .shader-container-nookweb canvas{width:100%!important;height:100%!important;display:block!important;position:absolute!important;top:0!important;left:0!important;border-radius:100px!important;pointer-events:none!important}
+
+/* ═══ RESPONSIVE FIXES (all new sections) ═══ */
+
+/* Depoimentos 4 cols → 2 cols tablet → 1 col mobile */
+@media(max-width:1024px){
+  .section [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:640px){
+  .section [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}
+}
+
+/* Stats 4 cards responsive */
+@media(max-width:900px){
+  .stats-grid{flex-wrap:wrap}
+  .stat-card{flex:1 1 calc(50% - 8px);max-width:none}
+}
+@media(max-width:480px){
+  .stat-card{flex:1 1 100%}
+}
+
+/* Deal popup responsive */
+@media(max-width:900px){
+  .deal-popup-inner .inv-layout{flex-direction:column}
+  .deal-popup-inner .inv-list{max-width:100%}
+  .deal-popup-inner .inv-panel-wrap{position:relative;top:0;max-width:100%;margin:16px auto 0}
+}
+@media(max-width:640px){
+  .deal-popup{padding:8px}
+  .deal-popup-inner{border-radius:16px;max-width:100%}
+  .deal-header{padding:20px 16px 12px}
+  .deal-plans-section{padding:8px 10px 20px}
+  .deal-popup-inner .inv-row-title{font-size:16px!important}
+}
+
+/* NookLead popup responsive */
+@media(max-width:640px){
+  .nl-popup{padding:8px}
+  .nl-popup-inner{border-radius:16px}
+  .nl-grid{grid-template-columns:1fr;padding:16px}
+  .nl-header{padding:20px 16px 12px}
+  .nl-screenshot{margin:0 12px 16px}
+  .nl-footer{padding:0 16px 20px}
+}
+
+/* Marketing section responsive */
+@media(max-width:768px){
+  .mkt-platforms{flex-direction:column;align-items:center}
+  .mkt-plat{width:100%;max-width:300px;justify-content:center}
+  .mkt-grid{grid-template-columns:1fr}
+  .mkt-includes{grid-template-columns:1fr}
+  .mkt-pricing{padding:24px 16px}
+}
+
+/* Cronograma tabs responsive (already has inline styles, reinforce) */
+@media(max-width:480px){
+  .crono-tabs__panel{padding:24px 16px}
+  .crono-tabs__panel-bg-num{font-size:80px!important}
+  .crono-tabs__tab{padding:12px 16px}
+}
+
+/* Nav CTA buttons responsive */
+@media(max-width:480px){
+  .nav-cta{--cta-w:180px!important;--cta-h:40px!important;--cta-inner-w:176px!important;--cta-inner-h:36px!important}
+  .nav-cta-label{font-size:9px!important;letter-spacing:.08em!important}
+}
+
+/* Contact section responsive */
+@media(max-width:480px){
+  .contact-title{font-size:clamp(22px,6vw,32px)}
+  .badge-latam{font-size:9px;padding:8px 14px}
+}
+
+/* Investimento section value responsive */
+@media(max-width:480px){
+  .investimento-nw [style*="font-size:clamp(48px"]{font-size:clamp(32px,10vw,48px)!important}
+}
+
+/* FAQ responsive */
+@media(max-width:480px){
+  .faq-accordion{gap:8px}
+  .faq-item summary{padding:14px 16px;font-size:14px!important}
+  .faq-a{padding:0 16px 16px}
+  .faq-a p{font-size:12px!important}
+}
+
+/* Global: prevent horizontal overflow on any screen */
+html,body{max-width:100vw;overflow-x:hidden}
 </style>
 </head>
 <body>
@@ -1450,7 +1537,7 @@ button.inv-row:focus-visible{
       </div>
       <div class="hero-ctas">
         <a href="#investimento" class="btn-liquid orange">Ver investimento</a>
-        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20saber%20mais." class="btn-outline" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+        <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20saber%20mais." class="btn-outline" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
       </div>
     </div>
   </div>
@@ -1749,6 +1836,11 @@ button.inv-row:focus-visible{
 <style>
 @media(max-width:768px){
   .section [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
+}
+@media(max-width:1024px){
+  .section [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:640px){
   .section [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}
 }
 </style>
@@ -2247,7 +2339,7 @@ button.inv-row:focus-visible{
       </div>
 
       <div style="text-align:center;margin-top:20px">
-        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Vi%20a%20proposta%20exclusiva%20da%20Gold%20Luxy%20e%20quero%20fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" style="min-width:280px;justify-content:center">
+        <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20exclusiva%20da%20Gold%20Luxy%20e%20quero%20fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" style="min-width:280px;justify-content:center">
           Garantir esta condição via WhatsApp
         </a>
       </div>
@@ -2387,7 +2479,7 @@ button.inv-row:focus-visible{
     <p style="font-size:11px;color:#555;margin-top:12px">* Valor não inclui verba de mídia (investimento em anúncios). Recomendamos mínimo de R$ 1.500/mês em mídia para joias.</p>
 
     <div style="margin-top:20px">
-      <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Vi%20a%20proposta%20de%20Marketing%20Digital%20da%20Gold%20Luxy%20e%20quero%20contratar." class="nav-cta" target="_blank" rel="noopener noreferrer">
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20de%20Marketing%20Digital%20da%20Gold%20Luxy%20e%20quero%20contratar." class="nav-cta" target="_blank" rel="noopener noreferrer">
         <div class="nav-cta-perspective">
           <div class="nav-cta-slab">
             <div class="nav-cta-layer nav-cta-layer--text">
@@ -2628,7 +2720,7 @@ button.inv-row:focus-visible{
     <p class="contact-sub" data-reveal>Entre em contato para iniciar o projeto</p>
 
     <div style="margin-bottom:32px" data-reveal>
-      <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20quero%20fechar." class="nav-cta" target="_blank" rel="noopener noreferrer">
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20quero%20fechar." class="nav-cta" target="_blank" rel="noopener noreferrer">
         <div class="nav-cta-perspective">
           <div class="nav-cta-slab">
             <div class="nav-cta-layer nav-cta-layer--text">
@@ -2746,7 +2838,7 @@ button.inv-row:focus-visible{
 
     <div class="nl-footer">
       <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--neutral);margin-bottom:12px">PLANO INDIVIDUAL: <span style="text-decoration:line-through">R$ 89/MÊS</span> · <strong style="color:#086249">INCLUSO NO SEU PLANO</strong></p>
-      <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20NookLead%20incluso%20na%20proposta%20Gold%20Luxy." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" style="min-width:260px;justify-content:center">
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20NookLead%20incluso%20na%20proposta%20Gold%20Luxy." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" style="min-width:260px;justify-content:center">
         Ativar NookLead via WhatsApp
       </a>
     </div>
