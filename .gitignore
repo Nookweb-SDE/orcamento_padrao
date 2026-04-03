@@ -1,6 +1,15 @@
 .DS_Store
 Thumbs.db
 
+# PDFs (orçamentos exportados, anexos, etc.)
+*.pdf
+
+# Transcrições de áudio e análises derivadas (só local; não versionar)
+**/_transcricoes/WhatsApp*.txt
+**/_transcricoes/*Ptt*.txt
+**/_transcricoes/02_*.md
+**/_transcricoes/03_*.md
+
 # Áudio grande / ambiente local
 *.wav
 *.ogg

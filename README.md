@@ -57,4 +57,5 @@ Podes manter cópias de trabalho em `Nookweb/orçamento/<cliente>/` no disco e *
 
 ## `.gitignore`
 
-Ficheiros de áudio (`.wav`, `.ogg`) e `.venv` não entram no Git por defeito — mantém o repositório leve. Textos de transcrição (`.txt`, `.md`) e o HTML entram se fizer sentido.
+- **Áudio** (`.wav`, `.ogg`), **PDFs** (`.pdf`), **transcrições** (`WhatsApp*.txt` em `_transcricoes/`) e notas **02_/03_** derivadas dos áudios **não** entram no Git — ficam só na tua máquina.
+- Mantêm-se versionados, por exemplo: `index.html`, `transcrever_local.py`, `requirements.txt`, `00_LEIA-ME.txt` (instruções).
