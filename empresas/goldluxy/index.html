@@ -1654,13 +1654,6 @@ button.inv-row:focus-visible{
 </section>
 
 
-<!-- ═══ CTA INTERMEDIÁRIO 1 ═══ -->
-<div style="padding:48px 0;text-align:center;background:var(--black-rich);border-top:1px solid rgba(255,255,255,.04)">
-  <p style="font-size:14px;color:var(--neutral);margin-bottom:16px" data-reveal>Gostou dos nossos resultados?</p>
-  <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20saber%20mais." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal>
-    Falar com a Nookweb via WhatsApp
-  </a>
-</div>
 
 <!-- ═══ LIGHTHOUSE ═══ -->
 <section class="lighthouse-section">
@@ -2263,13 +2256,155 @@ button.inv-row:focus-visible{
   </div>
 </div>
 
-<!-- ═══ CTA INTERMEDIÁRIO 2 ═══ -->
-<div style="padding:48px 0;text-align:center;background:var(--black-rich);border-top:1px solid rgba(255,255,255,.04)">
-  <p style="font-size:14px;color:var(--neutral);margin-bottom:16px" data-reveal>Pronto para transformar a Gold Luxy?</p>
-  <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal>
-    Fechar Proposta via WhatsApp
-  </a>
-</div>
+
+<!-- ═══ MARKETING DIGITAL ═══ -->
+<section id="marketing" style="background:linear-gradient(180deg,#0a0a0a,#111113);padding:80px 24px;color:#e0e0e0;font-family:'DM Sans',sans-serif">
+  <style>
+  .mkt-hero{text-align:center;margin-bottom:56px}
+  .mkt-hero__tag{font-size:11px;color:var(--orange);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;font-weight:600}
+  .mkt-hero__title{font-family:var(--font-serif);font-size:clamp(28px,4.5vw,48px);font-style:italic;font-weight:400;color:#fff;line-height:1.15;max-width:760px;margin:0 auto 16px}
+  .mkt-hero__title strong{font-weight:700;color:var(--orange)}
+  .mkt-hero__sub{font-size:15px;color:#888;max-width:620px;margin:0 auto;line-height:1.7}
+  .mkt-platforms{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:32px 0}
+  .mkt-plat{
+    display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;padding:14px 20px;transition:all .3s;
+  }
+  .mkt-plat:hover{border-color:rgba(255,69,0,.3);transform:translateY(-2px)}
+  .mkt-plat-icon{font-size:24px}
+  .mkt-plat-name{font-weight:600;font-size:14px;color:#fff}
+  .mkt-plat-desc{font-size:11px;color:#888}
+  .mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:960px;margin:40px auto 0}
+  .mkt-card{
+    background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+    border-radius:16px;padding:24px 20px;text-align:center;transition:all .3s;
+  }
+  .mkt-card:hover{border-color:rgba(255,69,0,.2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+  .mkt-card-ico{font-size:28px;margin-bottom:12px}
+  .mkt-card-title{font-family:var(--font-serif);font-size:17px;color:#fff;margin-bottom:6px}
+  .mkt-card-desc{font-size:12px;color:#888;line-height:1.5}
+  .mkt-pricing{
+    max-width:640px;margin:48px auto 0;text-align:center;
+    background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+    border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:36px 28px;
+    position:relative;overflow:hidden;
+  }
+  .mkt-pricing::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(255,69,0,.06) 0%,transparent 70%);pointer-events:none}
+  .mkt-old-price{font-family:var(--font-serif);font-size:22px;color:#888;text-decoration:line-through;opacity:.5}
+  .mkt-new-price{font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);color:var(--orange);line-height:1;margin:6px 0}
+  .mkt-save-badge{display:inline-block;background:rgba(8,98,73,.12);border:1px solid rgba(8,98,73,.3);border-radius:20px;padding:6px 16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:#8df4cc;margin:10px 0 16px}
+  .mkt-includes{display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left;margin:16px 0}
+  .mkt-inc-item{font-size:12px;color:#ccc;display:flex;align-items:center;gap:8px;line-height:1.4}
+  .mkt-inc-item::before{content:'✓';color:var(--orange);font-weight:700;font-size:11px;flex-shrink:0}
+  @media(max-width:768px){.mkt-grid{grid-template-columns:1fr}.mkt-includes{grid-template-columns:1fr}.mkt-platforms{gap:12px}}
+  </style>
+
+  <div class="mkt-hero" data-reveal>
+    <div class="mkt-hero__tag">Marketing Digital</div>
+    <h2 class="mkt-hero__title">Acelere suas vendas com quem <strong>entende de resultado.</strong></h2>
+    <p class="mkt-hero__sub">Gestão de tráfego pago com time especializado em conversão. Google, Instagram, YouTube e Meta Ads com estratégia focada no seu nicho de joias.</p>
+  </div>
+
+  <!-- Plataformas -->
+  <div class="mkt-platforms" data-reveal>
+    <div class="mkt-plat">
+      <svg width="28" height="28" viewBox="0 0 48 48"><path d="M43.6 20H24v8.5h11.3C34 34 29.5 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.5 4.1 29.6 2 24 2 12.4 2 3 11.4 3 23s9.4 21 21 21c11 0 20-8 20-21 0-1-.1-2-.4-3z" fill="#4285F4"/><path d="M6.3 14.7l7 5.1C15 15.5 19.1 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.5 4.1 29.6 2 24 2 16 2 9.1 7.4 6.3 14.7z" fill="#EA4335"/><path d="M24 46c5.5 0 10.3-1.8 14.1-5l-6.9-5.6C29.3 37 26.8 38 24 38c-5.4 0-10-3.7-11.6-8.7l-7 5.4C8.6 41.2 15.7 46 24 46z" fill="#34A853"/><path d="M43.6 20H24v8.5h11.3c-.8 3-2.7 5.5-5.1 7.1l6.9 5.6C41.3 37.5 45 31 45 23c0-1-.1-2-.4-3z" fill="#FBBC05"/></svg>
+      <div><div class="mkt-plat-name">Google Ads</div><div class="mkt-plat-desc">Busca, Shopping e Display</div></div>
+    </div>
+    <div class="mkt-plat">
+      <svg width="28" height="20" viewBox="0 0 159 110"><path d="M154 17.5c-1.8-6.7-7.1-12-13.8-13.8C128 0 78.8 0 78.8 0S29.5 0 17.3 3.7C10.6 5.5 5.3 10.8 3.5 17.5 0 29.7 0 55 0 55s0 25.3 3.5 37.5c1.8 6.7 7.1 12 13.8 13.8C29.5 110 78.8 110 78.8 110s49.3 0 61.5-3.7c6.7-1.8 12-7.1 13.8-13.8C157.5 80.3 157.5 55 157.5 55s.5-25.3-3.5-37.5z" fill="#FF0000"/><path d="M63 79.2V35.8L104 57.5z" fill="#fff"/></svg>
+      <div><div class="mkt-plat-name">YouTube Ads</div><div class="mkt-plat-desc">Vídeo e Discovery</div></div>
+    </div>
+    <div class="mkt-plat">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" style="height:22px;width:auto;filter:brightness(10)">
+      <div><div class="mkt-plat-name">Meta Ads</div><div class="mkt-plat-desc">Instagram + Facebook</div></div>
+    </div>
+  </div>
+
+  <!-- Métricas -->
+  <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin:32px 0" data-reveal>
+    <div style="text-align:center"><div style="font-family:var(--font-serif);font-size:32px;color:var(--orange);font-style:italic;font-weight:700">4.2x</div><div style="font-size:12px;color:#888;margin-top:2px">ROAS médio em joias</div></div>
+    <div style="text-align:center"><div style="font-family:var(--font-serif);font-size:32px;color:var(--orange);font-style:italic;font-weight:700">82%</div><div style="font-size:12px;color:#888;margin-top:2px">das compras começam no Google</div></div>
+    <div style="text-align:center"><div style="font-family:var(--font-serif);font-size:32px;color:var(--orange);font-style:italic;font-weight:700">3.8B</div><div style="font-size:12px;color:#888;margin-top:2px">usuários ativos Meta/mês</div></div>
+  </div>
+
+  <!-- Entregas -->
+  <div class="mkt-grid" data-reveal>
+    <div class="mkt-card">
+      <div class="mkt-card-ico">🎯</div>
+      <div class="mkt-card-title">Estratégia de Funil</div>
+      <div class="mkt-card-desc">Topo, meio e fundo de funil com públicos segmentados: interesses em joias, luxo, presentes e noivas.</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-card-ico">📊</div>
+      <div class="mkt-card-title">Dashboard em Tempo Real</div>
+      <div class="mkt-card-desc">Métricas de CPC, CTR, ROAS e conversão integradas. Relatório mensal com insights acionáveis.</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-card-ico">🎨</div>
+      <div class="mkt-card-title">Criativos Premium</div>
+      <div class="mkt-card-desc">Até 8 peças/mês (carrosséis, stories, vídeos curtos) com identidade visual Gold Luxy.</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-card-ico">🔄</div>
+      <div class="mkt-card-title">Remarketing Inteligente</div>
+      <div class="mkt-card-desc">Pixel configurado, audiências lookalike e retargeting para quem visitou, adicionou ao carrinho ou abandonou.</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-card-ico">📍</div>
+      <div class="mkt-card-title">SEO Local + GMB</div>
+      <div class="mkt-card-desc">Otimização do Google Meu Negócio, reviews e presença local para buscas "joias perto de mim".</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-card-ico">📧</div>
+      <div class="mkt-card-title">Automação de E-mail</div>
+      <div class="mkt-card-desc">Fluxos de boas-vindas, carrinho abandonado, pós-compra e datas especiais (Dia das Mães, Natal).</div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="mkt-pricing" data-reveal>
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:8px">Pacote Marketing Gold Luxy</p>
+    <div class="mkt-old-price">R$ 2.500/mês</div>
+    <div class="mkt-new-price">R$ 900<span style="font-size:.4em;color:#888">/mês</span></div>
+    <div class="mkt-save-badge">DESCONTO DE 64% · EXCLUSIVO PARCEIRO</div>
+    <p style="font-size:13px;color:#888;margin-bottom:16px;line-height:1.5">Gestão completa de tráfego pago + orgânico + criativos. Sem fidelidade de 12 meses — cancele quando quiser.</p>
+
+    <div class="mkt-includes">
+      <div class="mkt-inc-item">Google Ads (Search + Shopping)</div>
+      <div class="mkt-inc-item">YouTube Ads (Vídeo + Discovery)</div>
+      <div class="mkt-inc-item">Meta Ads (Instagram + Facebook)</div>
+      <div class="mkt-inc-item">Até 8 criativos/mês</div>
+      <div class="mkt-inc-item">Configuração de Pixel e conversões</div>
+      <div class="mkt-inc-item">Remarketing e Lookalike</div>
+      <div class="mkt-inc-item">Relatório mensal com ROAS</div>
+      <div class="mkt-inc-item">Google Meu Negócio otimizado</div>
+      <div class="mkt-inc-item">Automação de e-mail marketing</div>
+      <div class="mkt-inc-item">Reunião quinzenal de alinhamento</div>
+    </div>
+
+    <p style="font-size:11px;color:#555;margin-top:12px">* Valor não inclui verba de mídia (investimento em anúncios). Recomendamos mínimo de R$ 1.500/mês em mídia para joias.</p>
+
+    <div style="margin-top:20px">
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20de%20Marketing%20Digital%20da%20Gold%20Luxy%20e%20quero%20contratar." class="nav-cta" target="_blank" rel="noopener noreferrer">
+        <div class="nav-cta-perspective">
+          <div class="nav-cta-slab">
+            <div class="nav-cta-layer nav-cta-layer--text">
+              <span class="nav-cta-label">ATIVAR TRÁFEGO</span>
+            </div>
+            <div class="nav-cta-layer nav-cta-layer--bezel"><div class="nav-cta-bezel-fill"></div></div>
+            <div class="nav-cta-layer nav-cta-layer--shader">
+              <div class="nav-cta-shader-outer">
+                <div class="shader-container-nookweb cta-shader-3" style="border-radius:100px;overflow:hidden;position:relative;width:var(--cta-w);max-width:var(--cta-w);height:var(--cta-h);pointer-events:none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ NOOKLEAD ═══ -->
 <section class="nooklead-section" id="nooklead" style="background:#0D0D0D;padding:80px 24px">
@@ -2414,72 +2549,73 @@ button.inv-row:focus-visible{
     <div class="faq-head">
       <div class="section-label" style="justify-content:center" data-reveal>DÚVIDAS</div>
       <h2 class="section-title" data-reveal>Perguntas <em>frequentes</em></h2>
-      <p class="section-desc" data-reveal>Respostas alinhadas ao escopo desta proposta — desenvolvimento, mensalidade, propriedade intelectual e contrato.</p>
+      <p class="section-desc" data-reveal>Desenvolvimento, investimento, marketing, segurança, NookLead e condições comerciais.</p>
     </div>
 
     <div class="faq-accordion" data-reveal>
       <details class="glass faq-item" name="faq-goldluxy">
-        <summary>Qual o prazo até o go-live?</summary>
+        <summary>O que diferencia a Nookweb de outras agências?</summary>
         <div class="faq-a">
-          <p>O lançamento está planejado em 3 a 4 meses, em três fases descritas na seção Prazos: base e e-commerce B2B (mês 1), portal do cliente, vendedores e integração Bling (meses 2 e 3), identidade, e-mails, SEO técnico, testes e deploy (mês 4).</p>
+          <p>Somos uma <strong style="color:var(--cream);font-weight:600">agência de desenvolvimento com time 100% sênior</strong> — não terceirizamos código. Entregamos em código sob medida (React, Node, Flutter, AWS), com segurança enterprise, integração real com ERPs e gateways, e um CRM de prospecção (NookLead) incluso na mensalidade. Mais de 1.049 projetos entregues, score 100/100 no Lighthouse e cases como FIPS (maior exportadora de minério da América Latina), Monosphera (California) e Melhor Pix (fintech).</p>
+        </div>
+      </details>
+
+      <details class="glass faq-item" name="faq-goldluxy">
+        <summary>Por que o valor é tão abaixo do mercado?</summary>
+        <div class="faq-a">
+          <p>O valor de <strong style="color:var(--cream);font-weight:600">R$ 2.188,35/mês</strong> é uma condição exclusiva para clientes das nossas empresas parceiras (Asaas, PagBank, ContPix, Melhor Pix, B3). Uma agência sênior cobraria <strong style="color:var(--cream);font-weight:600">R$ 87.400+</strong> pelo mesmo escopo. Mantemos essa condição porque trabalhamos com volume e parceiros estratégicos — mas ela tem prazo limitado.</p>
         </div>
       </details>
 
       <details class="glass faq-item" name="faq-goldluxy">
         <summary>Vocês usam plataforma pronta ou código?</summary>
         <div class="faq-a">
-          <p>O produto é implementado em <strong style="color:var(--cream);font-weight:600">código sob medida</strong> (stack moderna: front-end, API, integrações), sem montar o negócio em construtores ou CMS genéricos. Você recebe uma aplicação própria, evolutiva e integrada ao Bling, pagamentos e logística conforme esta proposta.</p>
+          <p>Código sob medida — <strong style="color:var(--cream);font-weight:600">React, Node.js, Supabase, AWS</strong>. Nada de construtores, CMS genéricos ou ferramentas no-code. Você recebe uma aplicação própria, evolutiva, com segurança enterprise (LGPD, WAF, 2FA, criptografia) e integrada ao Bling, pagamentos e logística.</p>
+        </div>
+      </details>
+
+      <details class="glass faq-item" name="faq-goldluxy">
+        <summary>O que é o NookLead incluso na mensalidade?</summary>
+        <div class="faq-a">
+          <p>O <strong style="color:var(--cream);font-weight:600">NookLead</strong> é um CRM de prospecção B2B com acesso a +58,4 milhões de CNPJs da Receita Federal. Inclui pipeline Kanban, qualificação com IA, WhatsApp automatizado (98% de abertura), dashboard executivo e gamificação de vendas. O plano Individual (R$ 89/mês) vem <strong style="color:var(--cream);font-weight:600">incluso sem custo adicional</strong> na sua mensalidade.</p>
+        </div>
+      </details>
+
+      <details class="glass faq-item" name="faq-goldluxy">
+        <summary>Como funciona o marketing digital de R$ 900/mês?</summary>
+        <div class="faq-a">
+          <p>É um pacote separado e opcional de gestão de tráfego pago com time especializado. Inclui <strong style="color:var(--cream);font-weight:600">Google Ads, YouTube Ads e Meta Ads</strong> (Instagram + Facebook), até 8 criativos/mês, remarketing, relatório mensal com ROAS e reunião quinzenal. O valor não inclui verba de mídia — recomendamos mínimo de R$ 1.500/mês em anúncios. Sem fidelidade de 12 meses.</p>
         </div>
       </details>
 
       <details class="glass faq-item" name="faq-goldluxy">
         <summary>Quem é o dono do código-fonte?</summary>
         <div class="faq-a">
-          <p>O <strong style="color:var(--cream);font-weight:600">código-fonte e os artefatos do projeto são do cliente</strong>, nos termos do contrato de prestação de serviços. A Nookweb desenvolve e entrega o repositório e a documentação necessários para continuidade técnica e portabilidade.</p>
+          <p>O <strong style="color:var(--cream);font-weight:600">código-fonte, domínio e dados são do cliente</strong>, nos termos do contrato. A Nookweb desenvolve e entrega o repositório e a documentação para continuidade técnica e portabilidade. Você nunca fica preso.</p>
         </div>
       </details>
 
       <details class="glass faq-item" name="faq-goldluxy">
-        <summary>Como funciona o suporte após o lançamento?</summary>
+        <summary>Meu e-commerce é seguro contra ataques?</summary>
         <div class="faq-a">
-          <p>Após o go-live, o suporte operacional e correções alinhadas ao plano de sustentação são tratados pelos canais combinados (WhatsApp e e-mail). Severidade e prazos de resposta seguem o acordo comercial. Evoluções maiores podem usar os <strong style="color:var(--cream);font-weight:600">pacotes opcionais de melhorias</strong> em horas.</p>
-        </div>
-      </details>
-
-      <details class="glass faq-item" name="faq-goldluxy">
-        <summary>Posso alterar design e funcionalidades depois?</summary>
-        <div class="faq-a">
-          <p>Sim. Durante os 4 meses de desenvolvimento, refinamos interface e regras nas entregas de cada fase. Depois do lançamento, ajustes contínuos entram no escopo de <strong style="color:var(--cream);font-weight:600">sustentação</strong>; projetos de maior volume usam os pacotes mensais de horas, contratados à parte.</p>
-        </div>
-      </details>
-
-      <details class="glass faq-item" name="faq-goldluxy">
-        <summary>O que entra na mensalidade de sustentação?</summary>
-        <div class="faq-a">
-          <p>Conforme o plano contratado, tipicamente: manutenção da plataforma em código, integração e estabilidade com <strong style="color:var(--cream);font-weight:600">Bling</strong>, APIs de logística, <strong style="color:var(--cream);font-weight:600">NookLead</strong> (CRM), camadas de segurança e deploy acordados, ajustes de SEO técnico recorrentes e suporte. O detalhamento exato consta na proposta comercial e no contrato.</p>
+          <p>Sim. Implementamos <strong style="color:var(--cream);font-weight:600">LGPD completa</strong>, WAF via Cloudflare, 2FA obrigatório, bcrypt + salt para senhas, proteção contra SQL Injection e XSS, rate limiting, CSRF tokens, JWT, criptografia em repouso, logs de auditoria e sessão com expiração automática. Código seguro feito por quem entende de segurança.</p>
         </div>
       </details>
 
       <details class="glass faq-item" name="faq-goldluxy">
         <summary>Quais formas de pagamento?</summary>
         <div class="faq-a">
-          <p>A parcela de desenvolvimento pode ser quitada via PIX, boleto ou cartão conforme acordo (ex.: condições em até 3x sem juros quando aplicável). A mensalidade de sustentação e pacotes opcionais são faturados mês a mês, conforme plano assinado.</p>
+          <p>O desenvolvimento pode ser pago via <strong style="color:var(--cream);font-weight:600">PIX, boleto ou cartão</strong> (até 3x sem juros quando aplicável). Sustentação e pacotes opcionais são faturados mês a mês. O marketing digital é cobrado separadamente, também mensal.</p>
         </div>
       </details>
 
       <details class="glass faq-item" name="faq-goldluxy">
-        <summary>Há fidelidade na mensalidade?</summary>
+        <summary>O que acontece após os 4 meses?</summary>
         <div class="faq-a">
-          <p>Sim. A sustentação e planos recorrentes preveem <strong style="color:var(--cream);font-weight:600">período mínimo de 12 (doze) meses</strong>, conforme o plano contratado e a minuta contratual. Encerrado o prazo e cumpridas as obrigações, as regras de rescisão seguem o contrato. <strong style="color:var(--cream);font-weight:600">Domínio, dados e código-fonte permanecem com o cliente.</strong></p>
+          <p>Após a implantação e homologação, a operação passa para <strong style="color:var(--cream);font-weight:600">sustentação mensal</strong> (R$ 270–675/mês conforme escala) com NookLead incluso. Pacotes de melhorias (4h a 24h/mês) são opcionais. O marketing digital pode ser contratado a qualquer momento. Domínio, dados e código permanecem com você.</p>
         </div>
       </details>
 
-      <details class="glass faq-item" name="faq-goldluxy">
-        <summary>O que acontece após os 4 meses de desenvolvimento?</summary>
-        <div class="faq-a">
-          <p>Encerrada a fase de implantação com entrega e homologação, a operação passa para o regime de <strong style="color:var(--cream);font-weight:600">sustentação mensal</strong> (valores indicados nesta proposta após análise de escala) e, se desejar, pacotes de melhorias. Não confundir mensalidade de desenvolvimento com a de sustentação: ambas são descritas na seção Investimento.</p>
-        </div>
-      </details>
     </div>
   </div>
 </section>
@@ -2491,26 +2627,21 @@ button.inv-row:focus-visible{
     <h2 class="contact-title" data-reveal>Vamos construir o futuro<br>da <em>Gold Luxy</em> juntos.</h2>
     <p class="contact-sub" data-reveal>Entre em contato para iniciar o projeto</p>
 
-    <div class="contact-cards" data-reveal>
-      <a href="mailto:parceria@nookweb.com.br" class="contact-card">
-        <div class="cc-icon">✉️</div>
-        <div class="cc-info">
-          <div class="cc-label">E-MAIL</div>
-          <div class="cc-value">parceria@nookweb.com.br</div>
-        </div>
-      </a>
-      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20falar%20com%20a%20Nookweb." class="contact-card" target="_blank" rel="noopener noreferrer">
-        <div class="cc-icon">💬</div>
-        <div class="cc-info">
-          <div class="cc-label">WHATSAPP</div>
-          <div class="cc-value">WhatsApp</div>
-        </div>
-      </a>
-    </div>
-
     <div style="margin-bottom:32px" data-reveal>
-      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20fechar." class="btn-liquid orange" target="_blank" rel="noopener noreferrer">
-        Fechar Proposta via WhatsApp
+      <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20quero%20fechar." class="nav-cta" target="_blank" rel="noopener noreferrer">
+        <div class="nav-cta-perspective">
+          <div class="nav-cta-slab">
+            <div class="nav-cta-layer nav-cta-layer--text">
+              <span class="nav-cta-label">SELAR PARCERIA</span>
+            </div>
+            <div class="nav-cta-layer nav-cta-layer--bezel"><div class="nav-cta-bezel-fill"></div></div>
+            <div class="nav-cta-layer nav-cta-layer--shader">
+              <div class="nav-cta-shader-outer">
+                <div class="shader-container-nookweb cta-shader-2" style="border-radius:100px;overflow:hidden;position:relative;width:var(--cta-w);max-width:var(--cta-w);height:var(--cta-h);pointer-events:none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </a>
     </div>
 
@@ -2963,6 +3094,16 @@ document.getElementById('nookleadPopup').addEventListener('click',function(e){
         u_offsetY: -0.1,
       }, undefined, 0.6);
     }
+
+    // CTA buttons liquid metal (same shader as nav)
+    var shaderOpts = {
+      u_repetition: 4, u_softness: 0.5, u_shiftRed: 0.3, u_shiftBlue: 0.3,
+      u_distortion: 0, u_contour: 0, u_angle: 45, u_scale: 8, u_shape: 1,
+      u_offsetX: 0.1, u_offsetY: -0.1,
+    };
+    document.querySelectorAll('.cta-shader-1,.cta-shader-2,.cta-shader-3').forEach(function(host) {
+      new ShaderMount(host, liquidMetalFragmentShader, shaderOpts, undefined, 0.6);
+    });
 
     // Stats section mesh gradient background (same as nookweb.com.br)
     const statsBg = document.getElementById('statsShaderBg');
