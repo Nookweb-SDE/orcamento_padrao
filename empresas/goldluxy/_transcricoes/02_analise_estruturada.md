@@ -1,74 +1,50 @@
 # Análise estruturada — áudios do sócio (Gold Luxy)
 
-## Estado da transcrição
-
-A transcrição automática com **faster-whisper** não foi executada aqui por falta de rede/DNS para descarregar o modelo. Os ficheiros `.txt` por PTT incluem instruções e espaço para colagem manual após correres `transcrever_local.py` no teu sistema (ou outro STT).
-
-**Regra:** os bullets abaixo sobre **o que o sócio disse no áudio** só podem ser preenchidos com citações depois de teres o texto. Até lá, a secção “Proposta escrita atual (referência)” resume o que já está na página.
+Transcrições geradas com **faster-whisper** `small` (2026-04-03). O STT escreveu **“mitinota”** — no contexto fiscal/trabalhista provável **“meia nota”** (ou documento similar); validar à escuta.
 
 ---
 
-## 1. Valores (áudio — a completar com citações)
+## Áudio 1 — `15.14.37` (~88 s)
 
-| Tema | O que foi dito | Citação literal |
-|------|----------------|-----------------|
-| Desenvolvimento mensal | *Pendente transcrição* | |
-| Sustentação / faixas | *Pendente transcrição* | |
-| Pacotes de horas | *Pendente transcrição* | |
-| Fidelidade / prazo mínimo | *Pendente transcrição* | |
-| Domínio / infra | *Pendente transcrição* | |
+### Valores e margem
 
-### Proposta escrita atual em `index.html` (referência objetiva)
+- Em cada **hora cobrada**, a operação **absorve ~30–35%** de custos (infraestrutura, desenvolvimento, impostos; incluir na balança custos que o cliente **possa exigir** mesmo que nem sempre peça).
+- Com **R$ 62/h** nas margens que estavam na proposta e **descontando ~35%**, o **líquido por hora fica abaixo de R$ 50** — para a empresa isso é **baixo**; foi o **queixa** principal.
+- Menciona **parcela ~R$ 1.600+ em 4 vezes** (alinhado ao **R$ 1.621/mês × 4** da proposta): **pode ser pouco ou muito** conforme **o que o cliente quer fazer** — não fechou número novo.
 
-- Desenvolvimento: **R$ 1.621,00/mês** × **4 meses** (condição especial até **18/04/2026** na versão atual).
-- Infra: **R$ 364,00** pagamento único (domínio **10 anos**).
-- Sustentação: **R$ 200 a R$ 500/mês** (a definir por escala).
-- Pacotes opcionais: **R$ 300 a R$ 1.200/mês** (4h a 24h/mês); hora avulsa **R$ 80,00** onde aplicável.
+### Entregas / escopo
 
----
+- Não detalha features novas; foco é **viabilidade económica da hora** e **composição de custos**.
 
-## 2. Entregas e exclusões (áudio)
+### Tom comercial
 
-| Incluído / fora | Detalhe | Citação |
-|------------------|---------|---------|
-| *Preencher após transcrição* | | |
-
-### Entregas já descritas na proposta (site)
-
-- E-commerce B2B, integrações (ex.: **Bling**), portal cliente/vendedor, precificação, checkout, identidade, e-mails, SEO técnico, deploy (stack em **código**, não construtor genérico como base do produto — ver FAQ).
+- Transparência na **“conta”**; pedido para refletir **custos reais** na precificação de horas.
 
 ---
 
-## 3. Prazos e fases (áudio)
+## Áudio 2 — `15.19.28` (~68 s)
 
-| Prazo | Contexto | Citação |
-|-------|----------|---------|
-| *Pendente* | | |
+### Posicionamento (vs. ferramentas “no-code” / Lovable)
 
-### Prazos na página (cronograma)
+- Ferramentas tipo **Lovable** permitem “fazer qualquer coisa” rápido, mas **não** entregam app com **segurança**, **escala** e **crescimento** pensados.
+- Argumento de venda: não é “fazemos **igual**” ou “mais bonito”, e sim **profissional**, **escala**, **muitos utilizadores em simultâneo sem quebrar**, **sem vazamento de dados**.
+- Analogia **lanchonete vs. McDonald’s**: ambos fazem hambúrguer; a diferença é **operação, escala e confiança**.
 
-- **3 a 4 meses** até go-live, em **3 fases** (detalhadas na secção Prazos).
+### Valores
 
----
-
-## 4. Riscos / condições (fidelidade, código-fonte, APIs)
-
-| Tópico | Áudio (citação) | Página |
-|--------|-----------------|--------|
-| Fidelidade | *Pendente* | Mínimo **12 meses** em planos recorrentes, conforme plano/contrato (FAQ e Observações). |
-| Código-fonte | *Pendente* | Titularidade do **cliente**, nos termos contratuais (FAQ e Observações). |
-| Plataforma vs código | *Pendente* | FAQ: **código sob medida**, sem montar o negócio em construtores/CMS genéricos. |
+- Não cita valores monetários novos.
 
 ---
 
-## 5. Tom comercial (para copy)
+## Resumo executivo (bullets)
 
-- *Notas do áudio:* pendente.
-- Alinhamento geral pedido para a página: ênfase em **contrato**, **propriedade do código**, **fidelidade mínima** em linha com o plano, e **ausência de promessas baseadas em IA** como entregável do projeto.
+- **Horas avulsas / pacotes:** revisar se **R$ 80/h** (e derivações a partir de pacotes) sustentam **~35%** de custo implícito e margem aceitável para a Nookweb; o sócio considera **&lt; R$ 50/h líquidos** baixo para a empresa.
+- **Mensalidade ~R$ 1.621 × 4:** mantida como **dependente do escopo**; não há pedido explícito de mudança de valor no áudio.
+- **Mensagem para o cliente:** ênfase em **profissionalismo, escala, segurança e dados** vs. prototipagem rápida com ferramentas genéricas.
 
 ---
 
-## Resumo executivo
+## Próximos passos (proposta / contrato)
 
-- **Transcrição:** executar localmente `transcrever_local.py` (ou colar texto nos `.txt`) para validar com o sócio valores e promessas exatas.
-- **Proposta web:** números e políticas acima estão explícitos no investimento, FAQ e observações; ajustes finos devem ser guiados pelo texto literal dos áudios assim que disponível.
+- Decidir internamente se ajustam **tabela de horas** (ex.: **R$ 80** e pacotes) ou **texto da proposta** para explicar **composição de custos** sem comprometer números sem acordo comercial.
+- Opcional: **FAQ ou Observações** com uma linha sobre **diferença entre MVP “de ferramenta” e produto em código com SLA/segurança** — alinhado ao 2.º áudio (sem citar marcas se preferirem generalizar).

@@ -1,47 +1,45 @@
-# Cruzamento: áudios ↔ `index.html` (Gold Luxy)
+# Cruzamento: transcrições ↔ `index.html` (Gold Luxy)
 
-## Transcrição
+## Transcrições
 
-Sem texto literal dos PTTs neste ambiente, o cruzamento **linha a linha** com o que o sócio disse **fica pendente**. Assim que tiveres os `.txt` preenchidos, usa as tabelas abaixo.
-
-| Áudio | Trecho (citação) | Onde na página | Match? |
-|-------|------------------|----------------|--------|
-| 15.14.37 | | | |
-| 15.19.28 | | | |
+Ficheiros: `WhatsApp_Ptt_2026-04-03_at_15.14.37.txt`, `WhatsApp_Ptt_2026-04-03_at_15.19.28.txt` (Whisper `small`).
 
 ---
 
-## Convergências já observáveis (proposta escrita vs diretrizes combinadas)
+## Convergências
 
-| Tema | Onde no `index.html` | Nota |
-|------|----------------------|------|
-| Fidelidade mínima 12 meses | FAQ “Há fidelidade na mensalidade?”; Observações | Coerente com plano recorrente. |
-| Código-fonte do cliente | FAQ “Quem é o dono do código-fonte?”; Observações | Explícito. |
-| Código vs plataforma pronta | FAQ “Vocês usam plataforma pronta ou código?” | Sem Wix/WordPress como base do produto (construtores/CMS genéricos). |
-| Valores e tabelas | Secção Investimento (cards, resumo, cenários) | Verificar contra áudio quando disponível. |
-| Copy sem ênfase em IA como produto | Textos de mercado, cases e NookLead | Revisto para evitar “IA” como entrega; ícone 🤖 substituído por 📐 onde era visual genérico. |
+| Tema | Áudio | Página atual |
+|------|--------|----------------|
+| Valor mensal ~1.600 em 4 meses | “dividir em 4 vezes de 1.600 e pouco” | **R$ 1.621,00/mês** × **4 meses** |
+| Hora avulsa em torno de dezenas de euros | Cálculo a partir de **62/h** + **35%** custos | **R$ 80/h** avulsa (pacotes Light–Enterprise) — **rever margem** vs. preocupação do sócio |
+| Diferenciação profissional | Escala, segurança, dados | FAQ código vs plataforma; observações código do cliente; remoção de ênfase em “IA” como produto |
 
 ---
 
-## Divergências / lacunas (preencher após transcrição)
+## Divergências / alertas
 
-| Risco | Detalhe |
+| Ponto | Detalhe |
 |-------|---------|
-| Números diferentes do áudio | Comparar R$ 1.621, 364, faixas 200–500, pacotes 300–1.200. |
-| Prazo ou fases | Comparar “3–4 meses” e fases da timeline. |
-| Promessas não escritas | Se o sócio mencionar algo que não está na página, acrescentar só após validação. |
+| Margem da hora | Sócio diz que, com custos ~35%, o **líquido por hora fica &lt; R$ 50** a partir de **R$ 62** de base — **R$ 80/h** na página pode ser **defensável** como preço de venda, mas convém **validar internamente** se a **base de custo** usada na proposta bate com esta conta. |
+| “62 reais” | Não está explícito no HTML como **preço de custo interno**; é **discussão interna** ou nota metodológica, não necessariamente copy pública. |
+| 2.º áudio | Cita **Lovable** / **VibeCode** — útil em **call comercial**, opcional na página pública (risco de datar a copy). |
 
 ---
 
-## Alterações aplicadas nesta execução (HTML)
+## Lacunas (página não diz explicitamente)
 
-- Ajustes de **redação** para não sugerir **inteligência artificial** como entrega do projeto (ex.: case FIPS, estatística, busca no catálogo, ícone de tendência, texto do popup NookLead).
-- **Nenhuma alteração de valores monetários** — isso exige confirmação com o texto dos áudios ou acordo explícito.
+- Composição **aproximada** de custo (imposto, infra, risco) por trás da **hora técnica** — só se quiserem **transparência comercial**; não é obrigatório.
+- Argumento **McDonald’s / lanchonete** — pode virar **1 frase** num FAQ “Por que não usar só ferramenta X?” se quiserem.
 
 ---
 
-## Próximo passo
+## Alterações sugeridas (só após decisão vossa)
 
-1. Correr `transcrever_local.py` localmente (ou colar transcrições nos `.txt`).
-2. Atualizar tabelas deste ficheiro.
-3. Se houver divergência em **reais ou prazos**, editar `index.html` e `INV_PLANS` (se existir no teu ficheiro) de forma **pontual** e espelhada.
+- **Sem mudança automática de R$** com base só nos áudios: o sócio **não fixou** novo preço, apenas **questionou margem**.
+- Se subirem **R$ 80/h** ou valores de pacotes, atualizar **Investimento**, **resumo financeiro** e qualquer **INV_PLANS** / texto espelhado.
+
+---
+
+## Git — [orcamento_padrao](https://github.com/Nookweb-SDE/orcamento_padrao)
+
+As transcrições e esta análise devem estar também em `orcamento_padrao/empresas/goldluxy/_transcricoes/` para `git add` / `push` ao remoto (repositório ainda pode estar vazio no GitHub até ao primeiro push).
