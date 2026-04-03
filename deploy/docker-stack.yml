@@ -1,0 +1,43 @@
+# Docker Swarm — orçamentos estáticos em https://www.nookweb.com.br/orcamento/
+#
+# Antes de deploy:
+#   docker network ls | grep -i traefik    # rede externa (ex.: traefik_public)
+#   docker service inspect <algum_servico_com_tls> --format '{{json .Spec.Labels}}' | jq
+#     → confirme entrypoints (websecure) e certresolver (ex.: letsencryptresolver)
+#
+# Build (na raiz do repositório):
+#   docker build -f deploy/Dockerfile -t nookweb-orcamento:latest .
+#
+# Deploy:
+#   docker stack deploy -c deploy/docker-stack.yml nookweb-orcamento
+
+version: "3.8"
+
+services:
+  orcamento:
+    image: nookweb-orcamento:latest
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        # HTTPS — ajuste certresolver se o seu Traefik usar outro nome
+        traefik.http.routers.nookweb-orcamento-www.rule: "Host(`www.nookweb.com.br`) && PathPrefix(`/orcamento`)"
+        traefik.http.routers.nookweb-orcamento-www.entrypoints: "websecure"
+        traefik.http.routers.nookweb-orcamento-www.tls: "true"
+        traefik.http.routers.nookweb-orcamento-www.tls.certresolver: "letsencryptresolver"
+        traefik.http.routers.nookweb-orcamento-www.priority: "200"
+        traefik.http.routers.nookweb-orcamento-www.service: "nookweb-orcamento"
+        # Mesmo path no apex (sem www), se o DNS apontar para o mesmo servidor
+        traefik.http.routers.nookweb-orcamento-apex.rule: "Host(`nookweb.com.br`) && PathPrefix(`/orcamento`)"
+        traefik.http.routers.nookweb-orcamento-apex.entrypoints: "websecure"
+        traefik.http.routers.nookweb-orcamento-apex.tls: "true"
+        traefik.http.routers.nookweb-orcamento-apex.tls.certresolver: "letsencryptresolver"
+        traefik.http.routers.nookweb-orcamento-apex.priority: "200"
+        traefik.http.routers.nookweb-orcamento-apex.service: "nookweb-orcamento"
+        traefik.http.services.nookweb-orcamento.loadbalancer.server.port: "80"
+    networks:
+      - traefik_public
+
+networks:
+  traefik_public:
+    external: true

@@ -59,3 +59,8 @@ Podes manter cópias de trabalho em `Nookweb/orçamento/<cliente>/` no disco e *
 
 - **Áudio** (ex.: `.wav`, `.ogg`, `.mp3`, `.m4a`), **PDFs** (`.pdf`), **transcrições** (`WhatsApp*.txt` em `_transcricoes/`) e notas **02_/03_** derivadas dos áudios **não** entram no Git — ficam só na tua máquina.
 - Mantêm-se versionados, por exemplo: `index.html`, `transcrever_local.py`, `requirements.txt`, `00_LEIA-ME.txt` (instruções).
+
+## Deploy no VPS (`/orcamento`) sem SSH a partir de casa
+
+- **Script local:** `deploy/deploy-remoto.sh` (precisas de `ssh` ao servidor a partir de um IP não banido).
+- **GitHub Actions** (contorna IP banido em casa): o workflow `.github/workflows/deploy-vps.yml` faz `rsync` + `docker build` + `docker stack deploy` a partir dos runners da GitHub. No repositório em **Settings → Secrets and variables → Actions**, define `VPS_HOST`, `VPS_USER` e `VPS_SSH_KEY` (conteúdo do `nookweb_admin.pem`). Opcional: `VPS_STACK` = `deploy/docker-stack.http.yml` se o stack HTTPS falhar. Depois **Actions → Deploy orçamentos (VPS) → Run workflow** ou faz `push` para `main` em `empresas/` ou `deploy/`.

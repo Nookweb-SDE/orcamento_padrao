@@ -1,0 +1,30 @@
+# Alternativa se o Traefik só expuser HTTP (ex.: TLS terminado no Cloudflare).
+# Deploy: docker stack deploy -c deploy/docker-stack.http.yml nookweb-orcamento
+#
+# Confirme o nome do entrypoint HTTP (muitas vezes "web"):
+#   docker service inspect traefik_traefik --format '{{json .Spec.TaskTemplate.ContainerSpec.Args}}'
+
+version: "3.8"
+
+services:
+  orcamento:
+    image: nookweb-orcamento:latest
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.nookweb-orcamento-www.rule: "Host(`www.nookweb.com.br`) && PathPrefix(`/orcamento`)"
+        traefik.http.routers.nookweb-orcamento-www.entrypoints: "web"
+        traefik.http.routers.nookweb-orcamento-www.priority: "200"
+        traefik.http.routers.nookweb-orcamento-www.service: "nookweb-orcamento"
+        traefik.http.routers.nookweb-orcamento-apex.rule: "Host(`nookweb.com.br`) && PathPrefix(`/orcamento`)"
+        traefik.http.routers.nookweb-orcamento-apex.entrypoints: "web"
+        traefik.http.routers.nookweb-orcamento-apex.priority: "200"
+        traefik.http.routers.nookweb-orcamento-apex.service: "nookweb-orcamento"
+        traefik.http.services.nookweb-orcamento.loadbalancer.server.port: "80"
+    networks:
+      - traefik_public
+
+networks:
+  traefik_public:
+    external: true

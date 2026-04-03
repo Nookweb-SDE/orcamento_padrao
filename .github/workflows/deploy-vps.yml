@@ -1,0 +1,78 @@
+# Deploy para o VPS sem usar o teu IP (útil se estiveres banido pelo fail2ban em casa).
+# O SSH parte dos runners da GitHub → IP diferente do teu.
+#
+# Configuração (uma vez): Repositório → Settings → Secrets and variables → Actions
+#   VPS_HOST     ex.: 5.78.90.166
+#   VPS_USER     ex.: root
+#   VPS_SSH_KEY  conteúdo completo do nookweb_admin.pem (inclui BEGIN/END)
+#
+# Opcional: secret VPS_STACK com deploy/docker-stack.http.yml se TLS no Traefik falhar.
+#
+name: Deploy orçamentos (VPS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      stack_file:
+        description: "Ficheiro stack (relativo à raiz do repo)"
+        required: false
+        default: "deploy/docker-stack.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "empresas/**"
+      - "deploy/**"
+      - ".github/workflows/deploy-vps.yml"
+
+concurrency:
+  group: deploy-vps-orcamento
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH (rsync + docker)
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_STACK: ${{ secrets.VPS_STACK }}
+        run: |
+          set -euo pipefail
+          if [ -z "${VPS_HOST:-}" ] || [ -z "${VPS_USER:-}" ] || [ -z "${VPS_SSH_KEY:-}" ]; then
+            echo "::error::Defina os secrets VPS_HOST, VPS_USER e VPS_SSH_KEY nas Actions do repositório."
+            exit 1
+          fi
+          STACK="${{ github.event.inputs.stack_file }}"
+          if [ -z "$STACK" ] || [ "$STACK" = "null" ]; then
+            STACK="${VPS_STACK:-deploy/docker-stack.yml}"
+          fi
+          mkdir -p ~/.ssh
+          umask 077
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps.pem
+          chmod 600 ~/.ssh/vps.pem
+          ssh-keyscan -T 10 -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          REMOTE_DIR="/root/orcamento_padrao"
+          RSYNC='ssh -i ~/.ssh/vps.pem -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30'
+          rsync -avz -e "$RSYNC" --delete \
+            --exclude '.git/' \
+            --exclude '**/_transcricoes/' \
+            --exclude '*.pdf' \
+            --exclude '*.wav' --exclude '*.ogg' --exclude '*.mp3' --exclude '*.m4a' \
+            ./ "${VPS_USER}@${VPS_HOST}:${REMOTE_DIR}/"
+          ssh -i ~/.ssh/vps.pem -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 \
+            "${VPS_USER}@${VPS_HOST}" bash -s -- "$REMOTE_DIR" "$STACK" << 'REMOTE'
+          set -euo pipefail
+          REMOTE_DIR="$1"
+          STACK="$2"
+          cd "$REMOTE_DIR"
+          docker build -f deploy/Dockerfile -t nookweb-orcamento:latest .
+          docker stack deploy -c "$STACK" nookweb-orcamento
+          docker service ls | grep -i orcamento || true
+          REMOTE
