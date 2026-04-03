@@ -1,6 +1,11 @@
 Transcrição dos PTTs (Gold Luxy)
 ================================
 
+Nota PEP 668
+------------
+Se vires o aviso "externally-managed-environment" ao correres pip no sistema,
+usa o **venv** abaixo; dentro do `.venv` o `pip install` é o caminho certo.
+
 Instalação (Ubuntu/Debian — erro "externally-managed-environment")
 --------------------------------------------------------------------
 Não uses pip a nível do sistema. Cria um venv nesta pasta:
