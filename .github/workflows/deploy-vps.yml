@@ -55,7 +55,8 @@ jobs:
           fi
           mkdir -p ~/.ssh
           umask 077
-          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps.pem
+          # Garante quebras de linha reais mesmo se o secret vier com \n literal
+          printf '%s' "$VPS_SSH_KEY" | sed 's/\\n/\n/g' > ~/.ssh/vps.pem
           chmod 600 ~/.ssh/vps.pem
           ssh-keyscan -T 10 -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
           REMOTE_DIR="/root/orcamento_padrao"
