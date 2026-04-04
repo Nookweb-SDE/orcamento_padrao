@@ -73,6 +73,11 @@ jobs:
           REMOTE_DIR="$1"
           STACK="$2"
           cd "$REMOTE_DIR"
+          # Garantir que o Swarm está activo
+          docker swarm init 2>/dev/null || true
+          # Criar a rede traefik_public se não existir (necessária para os stacks)
+          docker network inspect traefik_public >/dev/null 2>&1 || \
+            docker network create --driver=overlay --attachable traefik_public
           docker build -f deploy/Dockerfile -t nookweb-orcamento:latest .
           docker stack deploy -c "$STACK" nookweb-orcamento
           docker service ls | grep -i orcamento || true
