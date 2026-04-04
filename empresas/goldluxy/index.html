@@ -257,67 +257,77 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(180deg,rgba(10,10,10,.16) 0%,rgba(10,10,10,.48) 48%,rgba(10,10,10,.96) 62%,rgba(10,10,10,1) 100%);
   z-index:1;
 }
-.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;max-width:1200px}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:48px;align-items:center;max-width:980px}
 .hero-content{text-align:left}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,69,0,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,69,0,.2);border-radius:30px;padding:8px 20px;font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--orange);margin-bottom:24px}
 .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:var(--font-serif);font-size:clamp(36px,4.5vw,64px);line-height:1.05;margin-bottom:16px}
+.hero h1{font-family:var(--font-serif);font-size:clamp(42px,5.5vw,72px);line-height:1.05;margin-bottom:16px}
 .hero h1 span{color:var(--orange);display:block;font-style:italic}
-.hero-sub{font-size:17px;color:var(--neutral);margin-bottom:32px;line-height:1.6}
+.hero-sub{font-size:18px;color:var(--neutral);margin-bottom:32px;line-height:1.6}
 .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
 .hero-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;padding:6px 16px;border:1px solid rgba(192,192,192,.15);border-radius:4px;color:var(--silver);backdrop-filter:blur(10px);background:rgba(255,255,255,.03)}
 .hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
 
-/* ═══ HERO URGENCY (direita) ═══ */
-.hero-urgency{display:flex;flex-direction:column;gap:0}
-.urgency-tag{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--font-mono);font-size:10px;letter-spacing:3px;
-  color:var(--orange);text-transform:uppercase;
-  border-left:3px solid var(--orange);padding-left:12px;
-  margin-bottom:18px;
-}
-.urgency-title{
-  font-family:var(--font-serif);
-  font-size:clamp(22px,2.8vw,36px);
-  line-height:1.15;color:#fff;
-  margin-bottom:24px;font-weight:400;
-}
-.urgency-title em{color:var(--orange);font-style:italic}
-.urgency-card{
-  background:rgba(8,8,8,.9);
-  border:1px solid rgba(255,69,0,.25);
-  border-radius:16px;padding:28px 32px;
-  margin-bottom:20px;
-  box-shadow:0 0 48px rgba(255,69,0,.06),inset 0 1px 0 rgba(255,255,255,.04);
-}
-.urgency-counter{
-  font-family:var(--font-mono);
-  font-size:clamp(32px,4vw,52px);
-  color:var(--orange);font-weight:700;
-  letter-spacing:2px;line-height:1;
-  margin-bottom:10px;
-}
-.urgency-counter-label{
-  font-family:var(--font-mono);font-size:9px;
-  letter-spacing:3px;color:var(--neutral);
-  text-transform:uppercase;line-height:1.5;
-}
-.urgency-desc{font-size:14px;color:var(--neutral);line-height:1.7}
-
-@media(max-width:900px){
-  .hero .container{grid-template-columns:1fr;gap:40px;max-width:680px}
-  .hero-content{text-align:center}
-  .hero-tags{justify-content:center}
-  .hero-ctas{justify-content:center}
-  .hero-urgency{max-width:480px;margin:0 auto}
-}
 @media(max-width:768px){
   .hero .container{grid-template-columns:1fr;text-align:center}
   .hero-content{text-align:center}
   .hero-tags{justify-content:center}
   .hero-ctas{justify-content:center}
+}
+
+/* ═══ URGENCY SECTION (final da página) ═══ */
+.urgency-section{
+  position:relative;background:#0a0a0a;
+  padding:100px 0;overflow:hidden;
+}
+.urgency-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(255,69,0,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.urgency-section .container{position:relative;z-index:1;text-align:center;max-width:720px}
+.urgency-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:3px;
+  color:var(--orange);text-transform:uppercase;
+  border-left:3px solid var(--orange);padding-left:12px;
+  margin-bottom:20px;
+}
+.urgency-title{
+  font-family:var(--font-serif);
+  font-size:clamp(28px,4vw,48px);
+  line-height:1.15;color:#fff;
+  margin-bottom:36px;font-weight:400;
+}
+.urgency-title em{color:var(--orange);font-style:italic}
+.urgency-card{
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;
+  padding:40px 48px;
+  margin:0 auto 28px;
+  max-width:480px;
+  box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 80px rgba(255,69,0,.06),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.urgency-counter{
+  font-family:var(--font-mono);
+  font-size:clamp(40px,7vw,68px);
+  color:var(--orange);font-weight:700;
+  letter-spacing:3px;line-height:1;
+  margin-bottom:14px;
+}
+.urgency-counter-label{
+  font-family:var(--font-mono);font-size:9px;
+  letter-spacing:3px;color:var(--neutral);
+  text-transform:uppercase;line-height:1.6;
+}
+.urgency-desc{font-size:15px;color:var(--neutral);line-height:1.7;margin-bottom:32px}
+@media(max-width:768px){
+  .urgency-card{padding:28px 24px;backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.06)}
+  .urgency-counter{font-size:clamp(32px,9vw,48px)}
 }
 /* Mobile performance: backdrop-filter é muito pesado em GPU móvel */
 @media(max-width:768px){
@@ -336,16 +346,6 @@ a{color:inherit;text-decoration:none}
   }
   /* Reduzir custo do marquee em mobile */
   .marquee-track{animation-duration:30s}
-  /* Urgency widget — centrar e reduzir espaçamentos em mobile */
-  .hero-urgency{text-align:center;align-items:center}
-  .urgency-tag{justify-content:center}
-  .urgency-card{
-    padding:20px 20px;
-    box-shadow:none!important; /* Remove glow caro em mobile */
-  }
-  .urgency-counter{font-size:clamp(26px,7vw,40px)}
-  .urgency-desc{font-size:13px}
-  .urgency-desc br{display:none} /* Evita quebra de linha forçada em telas pequenas */
 }
 
 /* ═══ MARQUEE ═══ */
@@ -1652,17 +1652,6 @@ html,body{max-width:100vw;overflow-x:hidden}
       </div>
     </div>
 
-    <!-- ═══ URGENCY WIDGET (direita) ═══ -->
-    <div class="hero-urgency">
-      <div class="urgency-tag">| O CUSTO DE ESPERAR</div>
-      <h2 class="urgency-title">Enquanto você decide,<br><em>oportunidades passam.</em></h2>
-      <div class="urgency-card">
-        <div class="urgency-counter" id="heroLostCounter">R$ 0</div>
-        <div class="urgency-counter-label">Em vendas B2B não capturadas este mês<br>sem o e-commerce Gold Luxy no ar</div>
-      </div>
-      <p class="urgency-desc">Cada dia sem o sistema certo custa clientes, tempo e dinheiro.<br>Entregamos em semanas, não meses.</p>
-    </div>
-
   </div>
 </section>
 
@@ -2835,6 +2824,22 @@ html,body{max-width:100vw;overflow-x:hidden}
   </div>
 </section>
 
+<!-- ═══ CUSTO DE ESPERAR ═══ -->
+<section class="urgency-section">
+  <div class="container">
+    <div class="urgency-tag" data-reveal>| O CUSTO DE ESPERAR</div>
+    <h2 class="urgency-title" data-reveal>Enquanto você decide,<br><em>oportunidades passam.</em></h2>
+    <div class="urgency-card" data-reveal>
+      <div class="urgency-counter" id="heroLostCounter">R$ 0</div>
+      <div class="urgency-counter-label">Em vendas B2B não capturadas este mês<br>sem o e-commerce Gold Luxy no ar</div>
+    </div>
+    <p class="urgency-desc" data-reveal>Cada dia sem o sistema certo custa clientes, tempo e dinheiro.<br>Entregamos em semanas, não meses.</p>
+    <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20quero%20começar%20agora." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal style="justify-content:center">
+      Começar agora — WhatsApp
+    </a>
+  </div>
+</section>
+
 <!-- ═══ CONTACT ═══ -->
 <section class="contact-section" id="contato">
   <div class="container">
@@ -2973,21 +2978,49 @@ html,body{max-width:100vw;overflow-x:hidden}
 (function(){
   var el = document.getElementById('heroLostCounter');
   if (!el) return;
-  // R$ 10.714/mês ≈ R$ 357/dia ≈ R$ 0.00413/segundo em oportunidades perdidas
+  // R$ 10.714/mês ≈ R$ 357/dia em oportunidades B2B perdidas
   var dailyRate = 357;
   var perSecond = dailyRate / 86400;
   var now = new Date();
   var dayOfMonth = now.getDate() - 1;
   var secOfDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-  var current = dayOfMonth * dailyRate + secOfDay * perSecond;
+  var accumulated = dayOfMonth * dailyRate + secOfDay * perSecond;
+
   function fmt(n) {
     return 'R$ ' + Math.floor(n).toLocaleString('pt-BR');
   }
-  el.textContent = fmt(current);
-  setInterval(function(){
-    current += perSecond * 0.1;
-    el.textContent = fmt(current);
-  }, 100);
+
+  var animated = false;
+  function startAnimation() {
+    if (animated) return;
+    animated = true;
+    // Fase 1: conta de 0 até o valor acumulado em 2.4s (easing out)
+    var start = null;
+    var duration = 2400;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3); // ease-out-cubic
+      el.textContent = fmt(accumulated * eased);
+      if (p < 1) { requestAnimationFrame(step); }
+      else {
+        el.textContent = fmt(accumulated);
+        // Fase 2: incrementa em tempo real (visível a cada 2s = +R$ ~0.008)
+        var live = accumulated;
+        setInterval(function(){
+          live += perSecond * 2;
+          el.textContent = fmt(live);
+        }, 2000);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Dispara quando a secção entra no viewport
+  var obs = new IntersectionObserver(function(entries){
+    if (entries[0].isIntersecting) { startAnimation(); obs.disconnect(); }
+  }, { threshold: 0.3 });
+  obs.observe(el.closest('section') || el);
 })();
 
 // Scroll reveal
