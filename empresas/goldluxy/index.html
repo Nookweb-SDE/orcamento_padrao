@@ -302,31 +302,61 @@ a{color:inherit;text-decoration:none}
 }
 .urgency-title em{color:var(--orange);font-style:italic}
 .urgency-card{
-  background:rgba(255,255,255,.04);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.1);
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   border-radius:24px;
-  padding:40px 48px;
+  padding:40px 52px 36px;
   margin:0 auto 28px;
-  max-width:480px;
-  box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 80px rgba(255,69,0,.06),inset 0 1px 0 rgba(255,255,255,.08);
+  max-width:420px;
+  text-align:center;
+}
+/* Spinning conic-gradient border */
+.urgency-card::before{
+  content:'';
+  position:absolute;
+  inset:-100%;
+  width:300%;height:300%;
+  background:conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(255,69,0,.95) 45deg,
+    rgba(255,100,20,.5) 75deg,
+    transparent 120deg,
+    transparent 360deg
+  );
+  animation:urgencyCardSpin 3.5s linear infinite;
+  z-index:-2;
+}
+/* Dark inner fill */
+.urgency-card::after{
+  content:'';
+  position:absolute;
+  inset:1.5px;
+  background:#0d0d0d;
+  border-radius:22px;
+  z-index:-1;
+}
+@keyframes urgencyCardSpin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
 }
 .urgency-counter{
   font-family:var(--font-mono);
-  font-size:clamp(40px,7vw,68px);
+  font-size:clamp(38px,7vw,64px);
   color:var(--orange);font-weight:700;
-  letter-spacing:3px;line-height:1;
+  letter-spacing:4px;line-height:1;
   margin-bottom:14px;
+  text-shadow:0 0 30px rgba(255,69,0,.4);
 }
 .urgency-counter-label{
   font-family:var(--font-mono);font-size:9px;
-  letter-spacing:3px;color:var(--neutral);
-  text-transform:uppercase;line-height:1.6;
+  letter-spacing:3px;color:rgba(255,255,255,.4);
+  text-transform:uppercase;line-height:1.7;
 }
 .urgency-desc{font-size:15px;color:var(--neutral);line-height:1.7;margin-bottom:32px}
 @media(max-width:768px){
-  .urgency-card{padding:28px 24px;backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.06)}
+  .urgency-card{padding:28px 28px 24px}
   .urgency-counter{font-size:clamp(32px,9vw,48px)}
 }
 /* Mobile performance: backdrop-filter é muito pesado em GPU móvel */
