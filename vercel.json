@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/orcamento/goldluxy/:path*", "destination": "/empresas/goldluxy/:path*" },
+    { "source": "/orcamento/blackiceconfecoes/:path*", "destination": "/empresas/blackiceconfecoes/:path*" },
+    { "source": "/orcamento/:slug/:path*", "destination": "/empresas/:slug/:path*" },
+    { "source": "/orcamento", "destination": "/index.html" },
+    { "source": "/orcamento/", "destination": "/index.html" }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+}
