@@ -276,89 +276,7 @@ a{color:inherit;text-decoration:none}
   .hero-ctas{justify-content:center}
 }
 
-/* ═══ URGENCY SECTION (final da página) ═══ */
-.urgency-section{
-  position:relative;background:#0a0a0a;
-  padding:100px 0;overflow:hidden;
-}
-.urgency-section::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(255,69,0,.07) 0%,transparent 70%);
-  pointer-events:none;
-}
-.urgency-section .container{position:relative;z-index:1;text-align:center;max-width:720px}
-.urgency-tag{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--font-mono);font-size:10px;letter-spacing:3px;
-  color:var(--orange);text-transform:uppercase;
-  border-left:3px solid var(--orange);padding-left:12px;
-  margin-bottom:20px;
-}
-.urgency-title{
-  font-family:var(--font-serif);
-  font-size:clamp(28px,4vw,48px);
-  line-height:1.15;color:#fff;
-  margin-bottom:36px;font-weight:400;
-}
-.urgency-title em{color:var(--orange);font-style:italic}
-.urgency-card{
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-  border-radius:24px;
-  padding:40px 52px 36px;
-  margin:0 auto 28px;
-  max-width:420px;
-  text-align:center;
-}
-/* Spinning conic-gradient border */
-.urgency-card::before{
-  content:'';
-  position:absolute;
-  inset:-100%;
-  width:300%;height:300%;
-  background:conic-gradient(
-    from 0deg at 50% 50%,
-    transparent 0deg,
-    rgba(255,69,0,.95) 45deg,
-    rgba(255,100,20,.5) 75deg,
-    transparent 120deg,
-    transparent 360deg
-  );
-  animation:urgencyCardSpin 3.5s linear infinite;
-  z-index:-2;
-}
-/* Dark inner fill */
-.urgency-card::after{
-  content:'';
-  position:absolute;
-  inset:1.5px;
-  background:#0d0d0d;
-  border-radius:22px;
-  z-index:-1;
-}
-@keyframes urgencyCardSpin{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
-}
-.urgency-counter{
-  font-family:var(--font-mono);
-  font-size:clamp(38px,7vw,64px);
-  color:var(--orange);font-weight:700;
-  letter-spacing:4px;line-height:1;
-  margin-bottom:14px;
-  text-shadow:0 0 30px rgba(255,69,0,.4);
-}
-.urgency-counter-label{
-  font-family:var(--font-mono);font-size:9px;
-  letter-spacing:3px;color:rgba(255,255,255,.4);
-  text-transform:uppercase;line-height:1.7;
-}
-.urgency-desc{font-size:15px;color:var(--neutral);line-height:1.7;margin-bottom:32px}
-@media(max-width:768px){
-  .urgency-card{padding:28px 28px 24px}
-  .urgency-counter{font-size:clamp(32px,9vw,48px)}
-}
+
 /* Mobile performance: backdrop-filter é muito pesado em GPU móvel */
 @media(max-width:768px){
   /* Desligar backdrop-filter em TODOS os elementos não essenciais */
@@ -2854,22 +2772,6 @@ html,body{max-width:100vw;overflow-x:hidden}
   </div>
 </section>
 
-<!-- ═══ CUSTO DE ESPERAR ═══ -->
-<section class="urgency-section">
-  <div class="container">
-    <div class="urgency-tag" data-reveal>| O CUSTO DE ESPERAR</div>
-    <h2 class="urgency-title" data-reveal>Enquanto você decide,<br><em>oportunidades passam.</em></h2>
-    <div class="urgency-card" data-reveal>
-      <div class="urgency-counter" id="heroLostCounter">R$ 0</div>
-      <div class="urgency-counter-label">Em vendas B2B não capturadas este mês<br>sem o e-commerce Gold Luxy no ar</div>
-    </div>
-    <p class="urgency-desc" data-reveal>Cada dia sem o sistema certo custa clientes, tempo e dinheiro.<br>Entregamos em semanas, não meses.</p>
-    <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20quero%20começar%20agora." class="btn-liquid orange" target="_blank" rel="noopener noreferrer" data-reveal style="justify-content:center">
-      Começar agora — WhatsApp
-    </a>
-  </div>
-</section>
-
 <!-- ═══ CONTACT ═══ -->
 <section class="contact-section" id="contato">
   <div class="container">
@@ -3004,55 +2906,6 @@ html,body{max-width:100vw;overflow-x:hidden}
 </div>
 <!-- ═══ SCRIPTS ═══ -->
 <script>
-// ═══ CONTADOR "CUSTO DE ESPERAR" ═══
-(function(){
-  var el = document.getElementById('heroLostCounter');
-  if (!el) return;
-  // R$ 10.714/mês ≈ R$ 357/dia em oportunidades B2B perdidas
-  var dailyRate = 357;
-  var perSecond = dailyRate / 86400;
-  var now = new Date();
-  var dayOfMonth = now.getDate() - 1;
-  var secOfDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-  var accumulated = dayOfMonth * dailyRate + secOfDay * perSecond;
-
-  function fmt(n) {
-    return 'R$ ' + Math.floor(n).toLocaleString('pt-BR');
-  }
-
-  var animated = false;
-  function startAnimation() {
-    if (animated) return;
-    animated = true;
-    // Fase 1: conta de 0 até o valor acumulado em 2.4s (easing out)
-    var start = null;
-    var duration = 2400;
-    function step(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - p, 3); // ease-out-cubic
-      el.textContent = fmt(accumulated * eased);
-      if (p < 1) { requestAnimationFrame(step); }
-      else {
-        el.textContent = fmt(accumulated);
-        // Fase 2: incrementa em tempo real (visível a cada 2s = +R$ ~0.008)
-        var live = accumulated;
-        setInterval(function(){
-          live += perSecond * 2;
-          el.textContent = fmt(live);
-        }, 2000);
-      }
-    }
-    requestAnimationFrame(step);
-  }
-
-  // Dispara quando a secção entra no viewport
-  var obs = new IntersectionObserver(function(entries){
-    if (entries[0].isIntersecting) { startAnimation(); obs.disconnect(); }
-  }, { threshold: 0.3 });
-  obs.observe(el.closest('section') || el);
-})();
-
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
