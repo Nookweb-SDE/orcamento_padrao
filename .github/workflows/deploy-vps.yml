@@ -75,23 +75,18 @@ jobs:
           cd "$REMOTE_DIR"
 
           echo "=== DIAGNÓSTICO DO SERVIDOR ==="
-          echo "--- Docker info ---"
-          docker info --format '{{.Swarm.LocalNodeState}} / {{.ServerVersion}}' 2>/dev/null || echo "docker indisponível"
-          echo "--- Serviços Swarm ---"
-          docker service ls 2>/dev/null || echo "(swarm não iniciado)"
-          echo "--- Containers em execução ---"
-          docker ps --format "{{.Names}} {{.Image}} {{.Ports}}" 2>/dev/null | head -20
-          echo "--- Redes overlay ---"
-          docker network ls --filter driver=overlay 2>/dev/null || true
-          echo "--- Traefik a correr? ---"
-          docker ps --filter name=traefik --format "{{.Names}} {{.Status}}" 2>/dev/null || true
-          docker service ls --filter name=traefik 2>/dev/null || true
+          echo "--- Redes overlay existentes ---"
+          docker network ls --filter driver=overlay --format "{{.ID}} {{.Name}} {{.Driver}}" 2>/dev/null
+          echo "--- Redes do Traefik ---"
+          docker service inspect traefik_traefik --format '{{range .Spec.Networks}}{{.Target}} {{end}}' 2>/dev/null || \
+          docker service inspect traefik --format '{{range .Spec.Networks}}{{.Target}} {{end}}' 2>/dev/null || \
+          echo "service traefik não encontrado"
+          echo "--- Labels de um serviço Traefik existente (supabase_kong) ---"
+          docker service inspect supabase_kong --format '{{json .Spec.Labels}}' 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); [print(k,'=',v) for k,v in d.items() if 'traefik' in k.lower()]" 2>/dev/null || echo "nao encontrado"
+          echo "--- Stack traefik (networks) ---"
+          docker stack services traefik 2>/dev/null || true
           echo "--- Portos abertos ---"
-          ss -tlnp 2>/dev/null | grep -E ':80|:443|:8080' || netstat -tlnp 2>/dev/null | grep -E ':80|:443|:8080' || true
-          echo "--- DNS www.nookweb.com.br ---"
-          grep -r "www" /var/named/ 2>/dev/null | grep -v '#' | head -5 || \
-          grep -r "www" /etc/bind/ 2>/dev/null | grep -v '#' | head -5 || \
-          echo "zona DNS não encontrada localmente"
+          ss -tlnp 2>/dev/null | grep -E ':80|:443|:8080' || true
           echo "=== FIM DIAGNÓSTICO ==="
 
           # Garantir que o Swarm está activo
