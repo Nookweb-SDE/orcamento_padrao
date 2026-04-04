@@ -257,18 +257,62 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(180deg,rgba(10,10,10,.16) 0%,rgba(10,10,10,.48) 48%,rgba(10,10,10,.96) 62%,rgba(10,10,10,1) 100%);
   z-index:1;
 }
-.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:48px;align-items:center;max-width:980px}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;max-width:1200px}
 .hero-content{text-align:left}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,69,0,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,69,0,.2);border-radius:30px;padding:8px 20px;font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--orange);margin-bottom:24px}
 .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:var(--font-serif);font-size:clamp(42px,5.5vw,72px);line-height:1.05;margin-bottom:16px}
+.hero h1{font-family:var(--font-serif);font-size:clamp(36px,4.5vw,64px);line-height:1.05;margin-bottom:16px}
 .hero h1 span{color:var(--orange);display:block;font-style:italic}
-.hero-sub{font-size:18px;color:var(--neutral);margin-bottom:32px;line-height:1.6}
+.hero-sub{font-size:17px;color:var(--neutral);margin-bottom:32px;line-height:1.6}
 .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
 .hero-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;padding:6px 16px;border:1px solid rgba(192,192,192,.15);border-radius:4px;color:var(--silver);backdrop-filter:blur(10px);background:rgba(255,255,255,.03)}
 .hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
 
+/* ═══ HERO URGENCY (direita) ═══ */
+.hero-urgency{display:flex;flex-direction:column;gap:0}
+.urgency-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:3px;
+  color:var(--orange);text-transform:uppercase;
+  border-left:3px solid var(--orange);padding-left:12px;
+  margin-bottom:18px;
+}
+.urgency-title{
+  font-family:var(--font-serif);
+  font-size:clamp(22px,2.8vw,36px);
+  line-height:1.15;color:#fff;
+  margin-bottom:24px;font-weight:400;
+}
+.urgency-title em{color:var(--orange);font-style:italic}
+.urgency-card{
+  background:rgba(8,8,8,.9);
+  border:1px solid rgba(255,69,0,.25);
+  border-radius:16px;padding:28px 32px;
+  margin-bottom:20px;
+  box-shadow:0 0 48px rgba(255,69,0,.06),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.urgency-counter{
+  font-family:var(--font-mono);
+  font-size:clamp(32px,4vw,52px);
+  color:var(--orange);font-weight:700;
+  letter-spacing:2px;line-height:1;
+  margin-bottom:10px;
+}
+.urgency-counter-label{
+  font-family:var(--font-mono);font-size:9px;
+  letter-spacing:3px;color:var(--neutral);
+  text-transform:uppercase;line-height:1.5;
+}
+.urgency-desc{font-size:14px;color:var(--neutral);line-height:1.7}
+
+@media(max-width:900px){
+  .hero .container{grid-template-columns:1fr;gap:40px;max-width:680px}
+  .hero-content{text-align:center}
+  .hero-tags{justify-content:center}
+  .hero-ctas{justify-content:center}
+  .hero-urgency{max-width:480px;margin:0 auto}
+}
 @media(max-width:768px){
   .hero .container{grid-template-columns:1fr;text-align:center}
   .hero-content{text-align:center}
@@ -1593,6 +1637,18 @@ html,body{max-width:100vw;overflow-x:hidden}
         <a href="https://wa.me/5511965119797?text=Ol%C3%A1%21%20Vi%20a%20proposta%20da%20Gold%20Luxy%20e%20gostaria%20de%20saber%20mais." class="btn-outline" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
       </div>
     </div>
+
+    <!-- ═══ URGENCY WIDGET (direita) ═══ -->
+    <div class="hero-urgency">
+      <div class="urgency-tag">| O CUSTO DE ESPERAR</div>
+      <h2 class="urgency-title">Enquanto você decide,<br><em>oportunidades passam.</em></h2>
+      <div class="urgency-card">
+        <div class="urgency-counter" id="heroLostCounter">R$ 0</div>
+        <div class="urgency-counter-label">Em vendas B2B não capturadas este mês<br>sem o e-commerce Gold Luxy no ar</div>
+      </div>
+      <p class="urgency-desc">Cada dia sem o sistema certo custa clientes, tempo e dinheiro.<br>Entregamos em semanas, não meses.</p>
+    </div>
+
   </div>
 </section>
 
@@ -2899,6 +2955,27 @@ html,body{max-width:100vw;overflow-x:hidden}
 </div>
 <!-- ═══ SCRIPTS ═══ -->
 <script>
+// ═══ CONTADOR "CUSTO DE ESPERAR" ═══
+(function(){
+  var el = document.getElementById('heroLostCounter');
+  if (!el) return;
+  // R$ 10.714/mês ≈ R$ 357/dia ≈ R$ 0.00413/segundo em oportunidades perdidas
+  var dailyRate = 357;
+  var perSecond = dailyRate / 86400;
+  var now = new Date();
+  var dayOfMonth = now.getDate() - 1;
+  var secOfDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+  var current = dayOfMonth * dailyRate + secOfDay * perSecond;
+  function fmt(n) {
+    return 'R$ ' + Math.floor(n).toLocaleString('pt-BR');
+  }
+  el.textContent = fmt(current);
+  setInterval(function(){
+    current += perSecond * 0.1;
+    el.textContent = fmt(current);
+  }, 100);
+})();
+
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
