@@ -244,8 +244,7 @@ a{color:inherit;text-decoration:none}
   position:absolute;
   inset:0;
   pointer-events:none;
-  background:url('https://nookweb.com.br/blackiceconfecoes/bg-moda-watermark.png') center 10%/120% auto no-repeat;
-  opacity:.05;
+  background:none;
   z-index:0;
 }
 .hero::after{
@@ -273,6 +272,20 @@ a{color:inherit;text-decoration:none}
   .hero-content{text-align:center}
   .hero-tags{justify-content:center}
   .hero-ctas{justify-content:center}
+}
+/* Mobile performance: backdrop-filter é muito pesado em GPU móvel */
+@media(max-width:768px){
+  .hero-badge,.hero-tag,.glass,.glass-strong,.btn-outline,
+  .case-card,.lh-card,.market-stat,.img-popup{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  /* Conter repaints nas animações de marquee e CSS infinitas */
+  .marquee-track,.stat-card,.shape-rocket,.shape-lightning,.shape-star,.shape-shield{
+    will-change:transform;
+  }
+  /* Reduzir custo do marquee em mobile */
+  .marquee-track{animation-duration:30s}
 }
 
 /* ═══ MARQUEE ═══ */
@@ -3166,6 +3179,8 @@ document.getElementById('nookleadPopup').addEventListener('click',function(e){
 <!-- WebGL Shaders (Liquid Metal Nav + Mesh Gradient Stats) -->
 <script>
 (async function(){
+  // Skip WebGL shaders on mobile — too expensive for mobile GPUs and causes scroll jank
+  if (window.matchMedia('(max-width: 768px)').matches) return;
   try {
     const { liquidMetalFragmentShader, meshGradientFragmentShader, ShaderMount, getShaderColorFromString } = await import('https://esm.sh/@paper-design/shaders@0.0.72');
 
