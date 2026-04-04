@@ -73,6 +73,27 @@ jobs:
           REMOTE_DIR="$1"
           STACK="$2"
           cd "$REMOTE_DIR"
+
+          echo "=== DIAGNÓSTICO DO SERVIDOR ==="
+          echo "--- Docker info ---"
+          docker info --format '{{.Swarm.LocalNodeState}} / {{.ServerVersion}}' 2>/dev/null || echo "docker indisponível"
+          echo "--- Serviços Swarm ---"
+          docker service ls 2>/dev/null || echo "(swarm não iniciado)"
+          echo "--- Containers em execução ---"
+          docker ps --format "{{.Names}} {{.Image}} {{.Ports}}" 2>/dev/null | head -20
+          echo "--- Redes overlay ---"
+          docker network ls --filter driver=overlay 2>/dev/null || true
+          echo "--- Traefik a correr? ---"
+          docker ps --filter name=traefik --format "{{.Names}} {{.Status}}" 2>/dev/null || true
+          docker service ls --filter name=traefik 2>/dev/null || true
+          echo "--- Portos abertos ---"
+          ss -tlnp 2>/dev/null | grep -E ':80|:443|:8080' || netstat -tlnp 2>/dev/null | grep -E ':80|:443|:8080' || true
+          echo "--- DNS www.nookweb.com.br ---"
+          grep -r "www" /var/named/ 2>/dev/null | grep -v '#' | head -5 || \
+          grep -r "www" /etc/bind/ 2>/dev/null | grep -v '#' | head -5 || \
+          echo "zona DNS não encontrada localmente"
+          echo "=== FIM DIAGNÓSTICO ==="
+
           # Garantir que o Swarm está activo
           docker swarm init 2>/dev/null || true
           # Criar a rede traefik_public se não existir (necessária para os stacks)
@@ -80,5 +101,6 @@ jobs:
             docker network create --driver=overlay --attachable traefik_public
           docker build -f deploy/Dockerfile -t nookweb-orcamento:latest .
           docker stack deploy -c "$STACK" nookweb-orcamento
+          echo "--- Serviços após deploy ---"
           docker service ls | grep -i orcamento || true
           REMOTE
