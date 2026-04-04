@@ -36,11 +36,8 @@ services:
         traefik.http.routers.nookweb-orcamento-apex.service: "nookweb-orcamento"
         traefik.http.services.nookweb-orcamento.loadbalancer.server.port: "80"
     networks:
-      - traefik_public
       - NookNet
 
 networks:
-  traefik_public:
-    external: true
   NookNet:
     external: true

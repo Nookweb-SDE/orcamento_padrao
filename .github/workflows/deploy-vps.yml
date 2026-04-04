@@ -74,19 +74,8 @@ jobs:
           STACK="$2"
           cd "$REMOTE_DIR"
 
-          echo "=== DIAGNÓSTICO DO SERVIDOR ==="
-          echo "--- Redes do Traefik (TaskTemplate.Networks) ---"
-          docker service inspect traefik_traefik --format '{{json .Spec.TaskTemplate.Networks}}' 2>/dev/null || echo "erro"
-          echo "--- Redes do Traefik (EndpointSpec) ---"
-          docker service inspect traefik_traefik --format '{{json .Spec.EndpointSpec}}' 2>/dev/null || echo "erro"
-          echo "--- Redes supabase_kong ---"
-          docker service inspect supabase_kong --format '{{json .Spec.TaskTemplate.Networks}}' 2>/dev/null || echo "erro"
-          echo "--- Config Traefik (procurar ficheiro) ---"
-          find / -maxdepth 6 -name "traefik.yml" -o -name "traefik.toml" 2>/dev/null | head -5 || true
-          docker inspect $(docker ps -qf name=traefik) 2>/dev/null | python3 -c "import json,sys; cs=json.load(sys.stdin); [print('MOUNT:',m.get('Source'),'->', m.get('Destination')) for c in cs for m in c.get('Mounts',[]) if 'traefik' in m.get('Source','').lower() or 'traefik' in m.get('Destination','').lower()]" 2>/dev/null || true
-          echo "--- Nossa rede nookweb-orcamento ---"
-          docker service inspect nookweb-orcamento_orcamento --format '{{json .Spec.TaskTemplate.Networks}}' 2>/dev/null || echo "erro"
-          echo "=== FIM DIAGNÓSTICO ==="
+          echo "--- Verificando estado do serviço ---"
+          docker service inspect nookweb-orcamento_orcamento --format '{{json .Spec.TaskTemplate.Networks}}' 2>/dev/null | python3 -c "import json,sys; nets=json.load(sys.stdin); print('Redes:',' '.join(str(n.get('Target','?')) for n in nets))" 2>/dev/null || true
 
           # Garantir que o Swarm está activo
           docker swarm init 2>/dev/null || true
