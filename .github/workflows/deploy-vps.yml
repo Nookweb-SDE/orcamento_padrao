@@ -82,8 +82,10 @@ jobs:
           # Criar a rede traefik_public se não existir (necessária para os stacks)
           docker network inspect traefik_public >/dev/null 2>&1 || \
             docker network create --driver=overlay --attachable traefik_public
-          docker build -f deploy/Dockerfile -t nookweb-orcamento:latest .
+          docker build --no-cache -f deploy/Dockerfile -t nookweb-orcamento:latest .
           docker stack deploy -c "$STACK" nookweb-orcamento
+          # Forçar restart do container para garantir imagem nova
+          docker service update --force nookweb-orcamento_orcamento 2>/dev/null || true
           echo "--- Serviços após deploy ---"
           docker service ls | grep -i orcamento || true
           REMOTE
