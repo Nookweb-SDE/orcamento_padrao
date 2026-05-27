@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>OG · Emply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  .og{
+    width:1200px;height:630px;position:relative;
+    background:#0a0a0a;color:#F5F0E8;font-family:'DM Sans',system-ui,sans-serif;
+    padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between;
+    overflow:hidden;
+  }
+  /* glow verde da marca */
+  .og::before{content:'';position:absolute;top:-220px;left:-120px;width:760px;height:760px;
+    background:radial-gradient(circle,rgba(34,224,151,.22),transparent 62%);pointer-events:none}
+  .og::after{content:'';position:absolute;bottom:-260px;right:-160px;width:680px;height:680px;
+    background:radial-gradient(circle,rgba(0,210,106,.12),transparent 62%);pointer-events:none}
+  .row{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+  .brand{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;letter-spacing:5px;color:#F5F0E8}
+  .brand sup{font-size:10px;color:#22e097}
+  .pill{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(34,224,151,.35);
+    background:rgba(34,224,151,.1);border-radius:40px;padding:10px 22px;
+    font-family:'Space Mono',monospace;font-size:14px;letter-spacing:3px;color:#22e097}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:#22e097}
+  .mid{position:relative;z-index:2}
+  .logo{height:118px;width:auto;display:block;margin-bottom:30px;
+    filter:drop-shadow(0 10px 40px rgba(34,224,151,.25))}
+  .title{font-family:'Instrument Serif',Georgia,serif;font-size:74px;line-height:1.02;font-weight:400}
+  .title em{font-style:italic;color:#22e097}
+  .foot{position:relative;z-index:2;display:flex;align-items:center;gap:18px;
+    font-family:'Space Mono',monospace;font-size:18px;letter-spacing:2px;color:#22e097}
+  .foot .sep{color:#3a3a3a}
+  .foot .muted{color:#8a8a8a}
+</style>
+</head>
+<body>
+  <div class="og">
+    <div class="row">
+      <span class="brand">NOOKWEB<sup>&reg;</sup></span>
+      <span class="pill"><span class="dot"></span>PROPOSTA EXCLUSIVA 2026</span>
+    </div>
+    <div class="mid">
+      <img class="logo" src="emply-logo.png" alt="Emply">
+      <div class="title">Proposta Comercial <em>Exclusiva</em></div>
+    </div>
+    <div class="foot">
+      <span>SITE PREMIUM</span><span class="sep">·</span>
+      <span>NOOKLEAD</span><span class="sep">·</span>
+      <span>GOOGLE</span><span class="sep">·</span>
+      <span class="muted">R$ 250/mês</span>
+    </div>
+  </div>
+</body>
+</html>
